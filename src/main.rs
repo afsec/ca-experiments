@@ -42,6 +42,7 @@
 
 use axum::{routing::get, Extension, Router};
 use sqlx::SqlitePool;
+use tower_http::trace::TraceLayer;
 use std::net::SocketAddr;
 use tower::ServiceBuilder;
 use tracing::log::LevelFilter;
@@ -54,9 +55,20 @@ mod helper;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    use crate::api::users::{self, Users};
-
+    use crate::api::users::Users;
+    
     tracing_subscriber::fmt::init();
+    // use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
+
+    // tracing_subscriber::registry()
+    //     .with(tracing_subscriber::EnvFilter::new(
+    //         std::env::var("RUST_LOG").unwrap_or_else(|_| {
+    //             // TODO: Replace to user defined log level
+    //             format!("{}=info,tower_http=debug", env!("CARGO_PKG_NAME")).into()
+    //         }),
+    //     ))
+    //     .with(tracing_subscriber::fmt::layer())
+    //     .init();
     let startup_message = "My Web service";
     tracing::info!("{}", startup_message);
     tracing::info!("Hello, world!");
@@ -71,17 +83,17 @@ async fn main() -> anyhow::Result<()> {
         let users_delete = Users;
     }
 
-    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
+    let addr = SocketAddr::from(([127, 0, 0, 1], 8000));
     // let sqlite_pool = create_sqlite_pool("./database.sqlite3").await?;
     let sqlite_pool = create_sqlite_pool(":memory:").await?;
 
     let routes = Router::new()
         .route(
             "/users",
-            //  get()
-            get(Users::count)
+            get(Users::read_all)
+            .head(Users::count)
             // .post(Users::create)
-            // .head(Users::count),
+            
         )
         // .route(
         //     "/users/:id",
@@ -95,7 +107,8 @@ async fn main() -> anyhow::Result<()> {
 
     let app = Router::new()
         .nest("/api", users)
-        .layer(ServiceBuilder::new().layer(Extension(sqlite_pool)));
+        .layer(ServiceBuilder::new().layer(Extension(sqlite_pool)))
+        .layer(TraceLayer::new_for_http());
 
     tracing::info!("Listening on http://{}", addr);
 
@@ -104,4 +117,3 @@ async fn main() -> anyhow::Result<()> {
         .await?;
     Ok(())
 }
-
