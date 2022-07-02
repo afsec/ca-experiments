@@ -41,22 +41,21 @@
 #![cfg_attr(test, allow(clippy::float_cmp))]
 
 use axum::{routing::get, Extension, Router};
-use sqlx::SqlitePool;
-use tower_http::trace::TraceLayer;
 use std::net::SocketAddr;
 use tower::ServiceBuilder;
-use tracing::log::LevelFilter;
+use tower_http::trace::TraceLayer;
 
 use crate::helper::{endpoint::Endpoint, sqlite::create_sqlite_pool};
 
 mod api;
 mod ca_design;
 mod helper;
+mod models;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    use crate::api::users::Users;
-    
+    use crate::api::users::EndpointUsers;
+
     tracing_subscriber::fmt::init();
     // use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
@@ -73,16 +72,6 @@ async fn main() -> anyhow::Result<()> {
     tracing::info!("{}", startup_message);
     tracing::info!("Hello, world!");
 
-    {
-        let db_driver = ();
-        let data_from_outside = "";
-        // let users_create = Users::count(db_driver, data_from_outside);
-        let users_read_one = Users;
-        let users_read_all = Users;
-        let users_update = Users;
-        let users_delete = Users;
-    }
-
     let addr = SocketAddr::from(([127, 0, 0, 1], 8000));
     // let sqlite_pool = create_sqlite_pool("./database.sqlite3").await?;
     let sqlite_pool = create_sqlite_pool(":memory:").await?;
@@ -90,16 +79,15 @@ async fn main() -> anyhow::Result<()> {
     let routes = Router::new()
         .route(
             "/users",
-            get(Users::read_all)
-            .head(Users::count)
-            // .post(Users::create)
-            
+            get(EndpointUsers::read_all)
+            .head(EndpointUsers::count)
+            // .post(EndpointUsers::create)
         )
         // .route(
         //     "/users/:id",
-        //     get(Users::read_one)
-        //         .patch(Users::update)
-        //         .delete(Users::delete),
+        //     get(EndpointUsers::read_one)
+        //         .patch(EndpointUsers::update)
+        //         .delete(EndpointUsers::delete),
         // )
         ;
 

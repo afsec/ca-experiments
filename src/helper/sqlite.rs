@@ -1,7 +1,7 @@
 use sqlx::SqlitePool;
 use tracing::log::LevelFilter;
 
-pub (crate) async fn create_sqlite_pool(filename_path: &'static str) -> anyhow::Result<SqlitePool> {
+pub(crate) async fn create_sqlite_pool(filename_path: &'static str) -> anyhow::Result<SqlitePool> {
     use sqlx::sqlite::{SqliteConnectOptions, SqliteJournalMode, SqlitePoolOptions};
     use sqlx::ConnectOptions;
     use std::str::FromStr;

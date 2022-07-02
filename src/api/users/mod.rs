@@ -1,22 +1,19 @@
-use crate::helper::endpoint::{Endpoint, X_TOTAL_COUNT};
+use crate::{
+    helper::endpoint::{Endpoint, X_TOTAL_COUNT},
+    models::User,
+};
 use async_trait::async_trait;
 use axum::{
     http::{HeaderMap, HeaderValue, StatusCode},
     Extension, Json,
 };
-use serde::Serialize;
+
 use sqlx::SqlitePool;
 
-pub(crate) struct Users;
-
-#[derive(Debug, Serialize)]
-pub(crate) struct User {
-    id: u16,
-    name: String,
-}
+pub(crate) struct EndpointUsers;
 
 #[async_trait]
-impl Endpoint<User> for Users {
+impl Endpoint<User> for EndpointUsers {
     async fn read_all(
         Extension(ref sqlite_pool): Extension<SqlitePool>,
     ) -> Result<Json<Vec<User>>, (StatusCode, String)> {

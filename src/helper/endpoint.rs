@@ -1,8 +1,10 @@
 use async_trait::async_trait;
-use axum::{http::{StatusCode, HeaderMap}, response::IntoResponse, Extension, Json};
+use axum::{
+    http::{HeaderMap, StatusCode},
+    Extension, Json,
+};
 use serde::Serialize;
 use sqlx::SqlitePool;
-
 
 pub(crate) const X_TOTAL_COUNT: &'static str = "X-Total-Count";
 
