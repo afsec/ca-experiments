@@ -1,0 +1,43 @@
+use async_trait::async_trait;
+use axum::{response::IntoResponse, Extension};
+use sqlx::SqlitePool;
+
+#[async_trait]
+pub(crate) trait Endpoint<DATAREQUEST: Into<String>, RESULT: IntoResponse> {
+    async fn count(db_driver: Extension<SqlitePool>) -> RESULT;
+    // async fn read_all(db_driver: DBDRIVER, data_from_outside: DATAREQUEST) -> RESULT;
+    // async fn read_one(db_driver: DBDRIVER, data_from_outside: DATAREQUEST) -> RESULT;
+    // async fn count(db_driver: DBDRIVER, data_from_outside: DATAREQUEST) -> RESULT;
+    // async fn count(db_driver: DBDRIVER, data_from_outside: DATAREQUEST) -> RESULT;
+    // async fn count(db_driver: DBDRIVER, data_from_outside: DATAREQUEST) -> RESULT;
+    // async fn count(db_driver: DBDRIVER, data_from_outside: DATAREQUEST) -> RESULT;
+
+    // fn read_all<DBDRIVER, DATAREQUEST, DATARESPONSE>(
+    //     db_driver: DBDRIVER,
+    //     data_from_outside: DATAREQUEST,
+    // ) -> Result<DATARESPONSE, (StatusCode, String)>
+    // where
+    //     DATAREQUEST: Into<String>,
+    //     DATARESPONSE: IntoResponse;
+    // fn read_one<DBDRIVER, DATAREQUEST, DATARESPONSE>(
+    //     db_driver: DBDRIVER,
+    //     data_from_outside: DATAREQUEST,
+    // ) -> Result<DATARESPONSE, (StatusCode, String)>
+    // where
+    //     DATAREQUEST: Into<String>,
+    //     DATARESPONSE: IntoResponse;
+    // fn update<DBDRIVER, DATAREQUEST, DATARESPONSE>(
+    //     db_driver: DBDRIVER,
+    //     data_from_outside: DATAREQUEST,
+    // ) -> Result<DATARESPONSE, (StatusCode, String)>
+    // where
+    //     DATAREQUEST: Into<String>,
+    //     DATARESPONSE: IntoResponse;
+    // fn delete<DBDRIVER, DATAREQUEST, DATARESPONSE>(
+    //     db_driver: DBDRIVER,
+    //     data_from_outside: DATAREQUEST,
+    // ) -> Result<DATARESPONSE, (StatusCode, String)>
+    // where
+    //     DATAREQUEST: Into<String>,
+    //     DATARESPONSE: IntoResponse;
+}
