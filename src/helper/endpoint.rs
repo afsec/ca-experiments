@@ -1,10 +1,19 @@
 use async_trait::async_trait;
-use axum::{response::IntoResponse, Extension};
+use axum::{http::{StatusCode, HeaderMap}, response::IntoResponse, Extension, Json};
+use serde::Serialize;
 use sqlx::SqlitePool;
 
+
+pub(crate) const X_TOTAL_COUNT: &'static str = "X-Total-Count";
+
 #[async_trait]
-pub(crate) trait Endpoint<DATAREQUEST: Into<String>, RESULT: IntoResponse> {
-    async fn count(db_driver: Extension<SqlitePool>) -> RESULT;
+pub(crate) trait Endpoint<ENTITY: Serialize> {
+    async fn read_all(
+        db_driver: Extension<SqlitePool>,
+    ) -> Result<Json<Vec<ENTITY>>, (StatusCode, String)>;
+    async fn count(
+        db_driver: Extension<SqlitePool>,
+    ) -> Result<(HeaderMap, ()), (StatusCode, String)>;
     // async fn read_all(db_driver: DBDRIVER, data_from_outside: DATAREQUEST) -> RESULT;
     // async fn read_one(db_driver: DBDRIVER, data_from_outside: DATAREQUEST) -> RESULT;
     // async fn count(db_driver: DBDRIVER, data_from_outside: DATAREQUEST) -> RESULT;
