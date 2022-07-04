@@ -40,7 +40,6 @@
 #![cfg_attr(docsrs, feature(doc_cfg))]
 #![cfg_attr(test, allow(clippy::float_cmp))]
 
-mod ca_design;
 // Clean architecture - Reference: https://github.com/vidu171/clean-architecture-go
 mod domain;
 mod infrastructure;
