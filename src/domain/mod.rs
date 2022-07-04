@@ -1,9 +1,10 @@
-/// Core business logic but is independent of the application.
+/// Domain driven design - https://en.wikipedia.org/wiki/Domain-driven_design
+/// 
+
+/// Core non application-specific business logic.
 /// The domain layer is the innermost layer and according to the dependency
 /// rule it should be independent of everything
-
-pub(crate) mod user;
-
+pub(crate) mod book;
 
 /// Entity – an object with a persistent identity. Two entities whose attributes have the
 /// same values are still different objects. In a Java EE application, classes which are

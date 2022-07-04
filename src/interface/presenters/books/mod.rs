@@ -1,5 +1,5 @@
 use crate::interface::crud::{Crud, X_TOTAL_COUNT};
-use crate::domain::user::User;
+use crate::domain::book::Book;
 use async_trait::async_trait;
 use axum::{
     http::{HeaderMap, HeaderValue, StatusCode},
@@ -8,13 +8,13 @@ use axum::{
 
 use sqlx::SqlitePool;
 
-pub(crate) struct EndpointUsers;
+pub(crate) struct EndpointBooks;
 
 #[async_trait]
-impl Crud<User> for EndpointUsers {
+impl Crud<Book> for EndpointBooks {
     async fn read_all(
         Extension(ref sqlite_pool): Extension<SqlitePool>,
-    ) -> Result<Json<Vec<User>>, (StatusCode, String)> {
+    ) -> Result<Json<Vec<Book>>, (StatusCode, String)> {
         // 1. Call model: Get data from database
         // 2. Call view: Get model_result and craft a response.
         //   ) -> Result<Json<Department>, (StatusCode, String)> {
@@ -25,15 +25,15 @@ impl Crud<User> for EndpointUsers {
     ) -> Result<(HeaderMap, ()), (StatusCode, String)> {
         let mut headers = HeaderMap::new();
         // TODO: Implement logic
-        let users_count = "0";
-        let header_value = match HeaderValue::from_str(users_count) {
+        let books_count = "0";
+        let header_value = match HeaderValue::from_str(books_count) {
             Ok(header_value) => header_value,
             Err(error) => {
                 // TODO: Implement Error matching
                 tracing::warn!("Handler error: {}", error.to_string());
                 return Err((
                     StatusCode::CONFLICT,
-                    "Error on serialization counted Users.".to_string(),
+                    "Error on serialization counted Books.".to_string(),
                 ));
             }
         };

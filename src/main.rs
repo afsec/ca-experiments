@@ -62,7 +62,7 @@ async fn main() -> anyhow::Result<()> {
     // tracing_subscriber::registry()
     //     .with(tracing_subscriber::EnvFilter::new(
     //         std::env::var("RUST_LOG").unwrap_or_else(|_| {
-    //             // TODO: Replace to user defined log level
+    //             // TODO: Replace to book defined log level
     //             format!("{}=info,tower_http=debug", env!("CARGO_PKG_NAME")).into()
     //         }),
     //     ))
@@ -79,11 +79,11 @@ async fn main() -> anyhow::Result<()> {
     let sqlite_pool = create_sqlite_pool(":memory:").await?;
 
     // * Infrastructure (Router)
-    let users = Router::new().merge(router::get_routes_users());
+    let books = Router::new().merge(router::get_routes_books());
 
     // * Infrastructure (Router)
     let app = Router::new()
-        .nest("/api", users)
+        .nest("/api", books)
         .layer(ServiceBuilder::new().layer(Extension(sqlite_pool)))
         .layer(TraceLayer::new_for_http());
 

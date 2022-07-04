@@ -1,17 +1,17 @@
 use axum::Router;
 
-pub(crate) fn get_routes_users() -> Router {
+pub(crate) fn get_routes_books() -> Router {
     use crate::interface::crud::Crud;
-    use crate::interface::presenters::users::EndpointUsers;
+    use crate::interface::presenters::books::EndpointBooks;
     use axum::routing::get;
     Router::new().route(
-        "/users",
-        get(EndpointUsers::read_all).head(EndpointUsers::count), // .post(EndpointUsers::create)
+        "/books",
+        get(EndpointBooks::read_all).head(EndpointBooks::count), // .post(EndpointBooks::create)
     )
     // .route(
-    //     "/users/:id",
-    //     get(EndpointUsers::read_one)
-    //         .patch(EndpointUsers::update)
-    //         .delete(EndpointUsers::delete),
+    //     "/books/:id",
+    //     get(EndpointBooks::read_one)
+    //         .patch(EndpointBooks::update)
+    //         .delete(EndpointBooks::delete),
     // )
 }
