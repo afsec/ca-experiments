@@ -1,7 +1,6 @@
 use axum::Router;
 
 pub(crate) fn get_routes_books() -> Router {
-    use crate::interface::crud::Crud;
     use crate::interface::presenters::books::EndpointBooks;
     use axum::routing::get;
     Router::new().route(

@@ -96,4 +96,4 @@ async fn main() -> anyhow::Result<()> {
 }
 
 
-// pub(crate) type AppResult<T> = anyhow::Result<T>;
+type AppResult<T> = anyhow::Result<T>;

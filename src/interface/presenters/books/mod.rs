@@ -1,4 +1,5 @@
-use crate::interface::crud::{Crud, X_TOTAL_COUNT};
+use super::X_TOTAL_COUNT;
+
 use crate::domain::book::Book;
 use async_trait::async_trait;
 use axum::{
@@ -6,13 +7,13 @@ use axum::{
     Extension, Json,
 };
 
+use serde::Serialize;
 use sqlx::SqlitePool;
 
 pub(crate) struct EndpointBooks;
 
-#[async_trait]
-impl Crud<Book> for EndpointBooks {
-    async fn read_all(
+impl EndpointBooks {
+    pub(crate) async fn read_all(
         Extension(ref sqlite_pool): Extension<SqlitePool>,
     ) -> Result<Json<Vec<Book>>, (StatusCode, String)> {
         // 1. Call model: Get data from database
@@ -20,7 +21,7 @@ impl Crud<Book> for EndpointBooks {
         //   ) -> Result<Json<Department>, (StatusCode, String)> {
         Ok(Json(vec![]))
     }
-    async fn count(
+    pub(crate) async fn count(
         db_driver: Extension<SqlitePool>,
     ) -> Result<(HeaderMap, ()), (StatusCode, String)> {
         let mut headers = HeaderMap::new();
