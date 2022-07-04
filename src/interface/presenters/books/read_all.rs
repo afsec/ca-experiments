@@ -1,6 +1,6 @@
 use crate::{
     domain::book::{BookId, BookName},
-    interface::presenters::{Model, Presenter, View, Endpoint},
+    interface::presenters::{Endpoint, Model, Presenter, View},
     AppResult,
 };
 use async_trait::async_trait;
@@ -8,13 +8,11 @@ use axum::{http::StatusCode, Json};
 use serde::Serialize;
 use sqlx::Sqlite;
 
-pub (super) struct ReadAll;
+pub(super) struct ReadAll;
 impl Endpoint for ReadAll {}
 
-
 #[async_trait]
-impl<'endpoint> Presenter<'endpoint,ReadAll,Sqlite,(),Vec<Book>,Json<Vec<Book>>> for ReadAll{}
-
+impl<'endpoint> Presenter<'endpoint, ReadAll, Sqlite, (), Vec<Book>, Json<Vec<Book>>> for ReadAll {}
 
 #[async_trait]
 impl<'endpoint> Model<'endpoint, Sqlite, (), Vec<Book>> for ReadAll {
@@ -33,7 +31,10 @@ impl<'endpoint> View<'endpoint, Vec<Book>, Json<Vec<Book>>> for ReadAll {
         &'endpoint self,
         model_result: AppResult<Vec<Book>>,
     ) -> Result<Json<Vec<Book>>, (StatusCode, String)> {
-        Ok(Json(vec![]))
+        match model_result {
+            Ok(books) => Ok(Json(books)),
+            Err(error) => Err((StatusCode::CONFLICT, format!(r#"{{ "error": "{error} }}"#))),
+        }
     }
 }
 
