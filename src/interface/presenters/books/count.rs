@@ -1,12 +1,10 @@
 use crate::{
-    domain::book::{BookId, BookName},
     interface::presenters::{Endpoint, Model, Presenter, View},
     AppResult,
 };
 use async_trait::async_trait;
 use axum::{http::StatusCode, Json};
 use serde::Serialize;
-use serde_json::json;
 use sqlx::Sqlite;
 
 pub(super) struct Count;

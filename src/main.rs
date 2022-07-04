@@ -95,5 +95,4 @@ async fn main() -> anyhow::Result<()> {
     Ok(())
 }
 
-
 type AppResult<T> = anyhow::Result<T>;

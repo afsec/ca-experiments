@@ -1,2 +1,2 @@
 pub (crate) mod presenters;
-pub (crate) mod repository;
+pub (crate) mod repositories;

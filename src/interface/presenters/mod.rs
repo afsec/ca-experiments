@@ -9,10 +9,10 @@ pub(crate) mod books;
 const X_TOTAL_COUNT: &'static str = "X-Total-Count";
 
 //////////////////////////////////////////////////
-pub(crate) trait Endpoint {}
+trait Endpoint {}
 
 #[async_trait]
-pub(crate) trait Model<'endpoint, DBDRIVER, INPUTDATA, OUTCOME>
+trait Model<'endpoint, DBDRIVER, INPUTDATA, OUTCOME>
 where
     DBDRIVER: Database,
     OUTCOME: Serialize + Send,
@@ -29,7 +29,7 @@ where
 }
 
 #[async_trait]
-pub(crate) trait View<'endpoint, OUTCOME, INTORESPONSE>
+trait View<'endpoint, OUTCOME, INTORESPONSE>
 where
     OUTCOME: Serialize + Send,
     INTORESPONSE: Sized,
@@ -43,7 +43,7 @@ where
 }
 
 #[async_trait]
-pub(crate) trait Presenter<'endpoint, ENDPOINT, DBDRIVER, INPUTDATA, OUTCOME, INTORESPONSE>
+trait Presenter<'endpoint, ENDPOINT, DBDRIVER, INPUTDATA, OUTCOME, INTORESPONSE>
 where
     ENDPOINT: Endpoint
         // + Name

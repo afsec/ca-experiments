@@ -1,15 +1,13 @@
 mod count;
 mod read_all;
 
-use self::read_all::ReadAll;
-
 use super::{Presenter, X_TOTAL_COUNT};
 
+use self::read_all::{Book as BookfromReadAll, ReadAll};
 use axum::{
     http::{HeaderMap, HeaderValue, StatusCode},
     Extension, Json,
 };
-use read_all::Book as BookfromReadAll;
 use sqlx::SqlitePool;
 
 pub(crate) struct BookPresenter;
@@ -18,7 +16,7 @@ impl BookPresenter {
     pub(crate) async fn read_all(
         Extension(ref sqlite_pool): Extension<SqlitePool>,
     ) -> Result<Json<Vec<BookfromReadAll>>, (StatusCode, String)> {
-        read_all::ReadAll::presenter(&ReadAll, sqlite_pool, ()).await
+        self::read_all::ReadAll::presenter(&ReadAll, sqlite_pool, ()).await
     }
 
     pub(crate) async fn count(

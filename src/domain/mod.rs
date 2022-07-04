@@ -1,10 +1,24 @@
 /// Domain driven design - https://en.wikipedia.org/wiki/Domain-driven_design
-/// 
+///
 
 /// Core non application-specific business logic.
 /// The domain layer is the innermost layer and according to the dependency
 /// rule it should be independent of everything
-pub(crate) mod book;
+pub(crate) mod entities;
+
+
+
+
+use async_trait::async_trait;
+
+#[async_trait]
+pub(crate) trait DataValidator {
+    async fn validate(&self) -> crate::AppResult<()>
+    where
+        Self: Sized;
+}
+
+
 
 /// Entity – an object with a persistent identity. Two entities whose attributes have the
 /// same values are still different objects. In a Java EE application, classes which are
