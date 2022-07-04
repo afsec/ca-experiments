@@ -1,25 +1,27 @@
-use super::X_TOTAL_COUNT;
+mod count;
+mod read_all;
 
-use crate::domain::book::Book;
-use async_trait::async_trait;
+use self::read_all::ReadAll;
+
+use super::{X_TOTAL_COUNT, Presenter};
+
 use axum::{
     http::{HeaderMap, HeaderValue, StatusCode},
     Extension, Json,
 };
-
-use serde::Serialize;
 use sqlx::SqlitePool;
+use read_all::Book as BookfromReadAll;
 
 pub(crate) struct BookPresenter;
 
 impl BookPresenter {
     pub(crate) async fn read_all(
         Extension(ref sqlite_pool): Extension<SqlitePool>,
-    ) -> Result<Json<Vec<Book>>, (StatusCode, String)> {
+    ) -> Result<Json<Vec<BookfromReadAll>>, (StatusCode, String)> {
         // 1. Call model: Get data from database
         // 2. Call view: Get model_result and craft a response.
         //   ) -> Result<Json<Department>, (StatusCode, String)> {
-        Ok(Json(vec![]))
+        read_all::ReadAll::presenter(&ReadAll, sqlite_pool, ()).await
     }
     pub(crate) async fn count(
         db_driver: Extension<SqlitePool>,
