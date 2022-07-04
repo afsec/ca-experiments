@@ -10,9 +10,9 @@ use axum::{
 use serde::Serialize;
 use sqlx::SqlitePool;
 
-pub(crate) struct EndpointBooks;
+pub(crate) struct BookPresenter;
 
-impl EndpointBooks {
+impl BookPresenter {
     pub(crate) async fn read_all(
         Extension(ref sqlite_pool): Extension<SqlitePool>,
     ) -> Result<Json<Vec<Book>>, (StatusCode, String)> {

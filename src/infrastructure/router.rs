@@ -1,16 +1,16 @@
 use axum::Router;
 
 pub(crate) fn get_routes_books() -> Router {
-    use crate::interface::presenters::books::EndpointBooks;
+    use crate::interface::presenters::books::BookPresenter;
     use axum::routing::get;
     Router::new().route(
         "/books",
-        get(EndpointBooks::read_all).head(EndpointBooks::count), // .post(EndpointBooks::create)
+        get(BookPresenter::read_all).head(BookPresenter::count), // .post(BookPresenter::create)
     )
     // .route(
     //     "/books/:id",
-    //     get(EndpointBooks::read_one)
-    //         .patch(EndpointBooks::update)
-    //         .delete(EndpointBooks::delete),
+    //     get(BookPresenter::read_one)
+    //         .patch(BookPresenter::update)
+    //         .delete(BookPresenter::delete),
     // )
 }
