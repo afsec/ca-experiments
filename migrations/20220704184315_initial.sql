@@ -1,22 +1,22 @@
 -- Add migration script here
 
-CREATE TABLE "author" (
+CREATE TABLE "authors" (
 	"id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-	"name"	TEXT
+	"name"	TEXT NOT NULL
 );
 
-CREATE TABLE "publisher" (
+CREATE TABLE "publishers" (
 	"id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-	"name"	TEXT
+	"name"	TEXT NOT NULL
 );
 
 CREATE TABLE "books" (
 	"id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-	"title"	TEXT,
-	"price"	INTEGER,
-	"quantity"	INTEGER,
-	"author"	INTEGER,
-	"publisher"	INTEGER,
+	"title"	TEXT NOT NULL,
+	"price"	INTEGER NOT NULL,
+	"quantity"	INTEGER NOT NULL,
+	"author"	INTEGER NOT NULL,
+	"publisher"	INTEGER NOT NULL,
 	FOREIGN KEY("publisher") REFERENCES "publisher"("id"),
 	FOREIGN KEY("author") REFERENCES "author"("id")
 );

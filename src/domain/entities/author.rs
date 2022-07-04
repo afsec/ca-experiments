@@ -1,13 +1,31 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Deserialize, Serialize)]
-pub(crate) struct AuthorId(u32);
+pub(crate) struct AuthorId(i64);
+
+impl From<AuthorId> for i64 {
+    fn from(id: AuthorId) -> Self {
+        id.0
+    }
+}
+
+impl From<i64> for AuthorId {
+    fn from(value: i64) -> Self {
+        Self(value)
+    }
+}
 
 #[derive(Debug, Deserialize, Serialize)]
 pub(crate) struct AuthorName(String);
 
-// #[derive(Debug, Deserialize, Serialize)]
-// pub(crate) struct Author {
-//     id: AuthorId,
-//     name: AuthorName,
-// }
+impl From<AuthorName> for String {
+    fn from(name: AuthorName) -> Self {
+        name.0
+    }
+}
+
+impl From<String> for AuthorName {
+    fn from(value: String) -> Self {
+        Self(value)
+    }
+}

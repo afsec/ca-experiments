@@ -79,11 +79,13 @@ async fn main() -> anyhow::Result<()> {
     let sqlite_pool = create_sqlite_pool(":memory:").await?;
 
     // * Infrastructure (Router)
-    let books = Router::new().merge(router::get_routes_books());
+    let routes = Router::new()
+        .merge(router::get_routes_books())
+        .merge(router::get_routes_authors());
 
     // * Infrastructure (Router)
     let app = Router::new()
-        .nest("/api", books)
+        .nest("/api", routes)
         .layer(ServiceBuilder::new().layer(Extension(sqlite_pool)))
         .layer(TraceLayer::new_for_http());
 

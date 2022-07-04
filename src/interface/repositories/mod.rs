@@ -4,6 +4,7 @@
 // use crate::AppResult;
 
 pub(crate) mod book;
+pub(crate) mod author;
 
 // Repository – an object that provides access to persistent entities and encapsulates the
 //  mechanism for accessing the database.

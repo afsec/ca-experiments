@@ -1,3 +1,27 @@
 {
-  "db": "SQLite"
+  "db": "SQLite",
+  "9dc580a8c5a2a8f2c2faebe897b67b292c4dc9576edbb12627bc756dd5179de6": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Int64"
+        },
+        {
+          "name": "name",
+          "ordinal": 1,
+          "type_info": "Text"
+        }
+      ],
+      "nullable": [
+        false,
+        false
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n            SELECT id, name\n            FROM `authors`;\n        "
+  }
 }

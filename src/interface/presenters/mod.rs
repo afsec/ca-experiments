@@ -4,6 +4,7 @@ use axum::http::StatusCode;
 use serde::Serialize;
 use sqlx::{Database, Pool};
 
+pub(crate) mod authors;
 pub(crate) mod books;
 
 const X_TOTAL_COUNT: &'static str = "X-Total-Count";

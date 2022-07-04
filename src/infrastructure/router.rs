@@ -14,3 +14,15 @@ pub(crate) fn get_routes_books() -> Router {
     //         .delete(BookPresenter::delete),
     // )
 }
+
+
+pub(crate) fn get_routes_authors() -> Router {
+    use crate::interface::presenters::authors::AuthorPresenter;
+    use axum::routing::get;
+    Router::new().route(
+        "/authors",
+        get(AuthorPresenter::read_all)
+        // .head(AuthorPresenter::count)
+        // .post(AuthorPresenter::create)
+    )
+}
