@@ -40,21 +40,24 @@
 #![cfg_attr(docsrs, feature(doc_cfg))]
 #![cfg_attr(test, allow(clippy::float_cmp))]
 
-use axum::{routing::get, Extension, Router};
-use std::net::SocketAddr;
-use tower::ServiceBuilder;
-use tower_http::trace::TraceLayer;
-
-use crate::helpers::{crud::Crud, sqlite::create_sqlite_pool};
-
-mod interface;
 mod ca_design;
 mod helpers;
 mod models;
+// Clean architecture
+mod domain;
+mod infrastructure;
+mod interface;
+mod usecases;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    use crate::interface::presenters::users::EndpointUsers;
+    use axum::{Extension, Router};
+    use std::net::SocketAddr;
+    use tower::ServiceBuilder;
+    use tower_http::trace::TraceLayer;
+
+    use crate::infrastructure::router;
+    use infrastructure::sqlite::create_sqlite_pool;
 
     tracing_subscriber::fmt::init();
     // use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
@@ -74,28 +77,12 @@ async fn main() -> anyhow::Result<()> {
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 8000));
     // let sqlite_pool = create_sqlite_pool("./database.sqlite3").await?;
-    
+
     // * Infrastructure (DB)
     let sqlite_pool = create_sqlite_pool(":memory:").await?;
 
-
     // * Infrastructure (Router)
-    let users = Router::new()
-        .route(
-            "/users",
-            get(EndpointUsers::read_all)
-            .head(EndpointUsers::count)
-            // .post(EndpointUsers::create)
-        )
-        // .route(
-        //     "/users/:id",
-        //     get(EndpointUsers::read_one)
-        //         .patch(EndpointUsers::update)
-        //         .delete(EndpointUsers::delete),
-        // )
-        ;
-
-    // let users = Router::new().merge(routes);
+    let users = Router::new().merge(router::get_routes_users());
 
     // * Infrastructure (Router)
     let app = Router::new()
