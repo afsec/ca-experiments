@@ -1,4 +1,4 @@
-pub (crate) mod users;
+pub (crate) mod books;
 
 
 /// Repository – an object that provides access to persistent entities and encapsulates the

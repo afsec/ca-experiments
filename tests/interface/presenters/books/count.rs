@@ -2,33 +2,33 @@ type Input = ();
 
 type Expect = u32;
 
-struct CountTableUsers;
+struct CountTableBooks;
 
-impl CountTableUsers {
-    fn expect(expect: Expect) -> CountTableUsersWE {
-        CountTableUsersWE { expect }
+impl CountTableBooks {
+    fn expect(expect: Expect) -> CountTableBooksWE {
+        CountTableBooksWE { expect }
     }
 }
 
-struct CountTableUsersWE {
+struct CountTableBooksWE {
     expect: Expect,
 }
 
-impl CountTableUsersWE {
-    fn input(self, input: Input) -> CountTableUsersWI {
-        CountTableUsersWI {
+impl CountTableBooksWE {
+    fn input(self, input: Input) -> CountTableBooksWI {
+        CountTableBooksWI {
             expect: self.expect,
             input,
         }
     }
 }
 
-struct CountTableUsersWI {
+struct CountTableBooksWI {
     expect: Expect,
     input: Input,
 }
 
-impl CountTableUsersWI {
+impl CountTableBooksWI {
     fn run(self) {
         // Response header "x-total-count: 0"
 
@@ -52,11 +52,11 @@ impl CountTableUsersWI {
 
 #[test]
 fn ok_on_count_void_database() {
-    CountTableUsers::expect(0).input(()).run()
+    CountTableBooks::expect(0).input(()).run()
 }
 
 // #[test]
-// fn ok_on_count_table_with_3_users() {
-//     // 1. Populate table Users with 3 rows
-//     CountTableUsers::expect(3).input(()).run()
+// fn ok_on_count_table_with_3_books() {
+//     // 1. Populate table Books with 3 rows
+//     CountTableBooks::expect(3).input(()).run()
 // }
