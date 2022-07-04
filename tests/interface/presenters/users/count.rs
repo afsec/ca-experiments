@@ -55,8 +55,8 @@ fn ok_on_count_void_database() {
     CountTableUsers::expect(0).input(()).run()
 }
 
-#[test]
-fn ok_on_count_table_with_3_users() {
-    // 1. Populate table Users with 3 rows
-    CountTableUsers::expect(3).input(()).run()
-}
+// #[test]
+// fn ok_on_count_table_with_3_users() {
+//     // 1. Populate table Users with 3 rows
+//     CountTableUsers::expect(3).input(()).run()
+// }
