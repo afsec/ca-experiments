@@ -4,7 +4,7 @@ use crate::{
     AppResult,
 };
 use serde::Serialize;
-use sqlx::{Database, FromRow, SqlitePool};
+use sqlx::{FromRow, SqlitePool};
 
 // * DepartmentFromSqlx
 #[derive(Debug, FromRow)]

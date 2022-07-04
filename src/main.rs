@@ -76,7 +76,7 @@ async fn main() -> anyhow::Result<()> {
     // let sqlite_pool = create_sqlite_pool("./database.sqlite3").await?;
 
     // * Infrastructure (DB)
-    let sqlite_pool = create_sqlite_pool(":memory:").await?;
+    let sqlite_pool = create_sqlite_pool("./database.sqlite3").await?;
 
     // * Infrastructure (Router)
     let routes = Router::new()

@@ -2,6 +2,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Deserialize, Serialize)]
 pub(crate) struct AuthorId(i64);
+// TODO: Implement Validator
 
 impl From<AuthorId> for i64 {
     fn from(id: AuthorId) -> Self {
