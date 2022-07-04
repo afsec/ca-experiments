@@ -7,6 +7,12 @@ pub(crate) struct BookId(u32);
 pub(crate) struct BookTitle(String);
 
 #[derive(Debug, Deserialize, Serialize)]
+pub(crate) struct BookPrice(u32);
+
+#[derive(Debug, Deserialize, Serialize)]
+pub(crate) struct BookQuantity(u32);
+
+#[derive(Debug, Deserialize, Serialize)]
 pub(crate) struct BookAuthor(u32);
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -16,8 +22,8 @@ pub(crate) struct BookPublisher(u32);
 // pub(crate) struct Book {
 //     id: BookId,
 //     title: BookTitle,
-//     author: BookAuthor, // FK
+//     author: BookAuthor,       // FK
 //     publisher: BookPublisher, // FK
-//     price: u32,
-//     quantity: u32,
+//     price: BookPrice,
+//     quantity: BookQuantity,
 // }

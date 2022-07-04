@@ -1,5 +1,7 @@
 use crate::{
-    domain::entities::book::{BookId, BookTitle},
+    domain::entities::book::{
+        BookAuthor, BookId, BookPrice, BookPublisher, BookQuantity, BookTitle,
+    },
     interface::presenters::Endpoint,
 };
 
@@ -12,8 +14,12 @@ mod view;
 pub(super) struct ReadAll;
 impl Endpoint for ReadAll {}
 
-#[derive(Debug, Serialize)]
-pub(crate) struct Book {
-    id: BookId,
-    title: BookTitle,
-}
+// #[derive(Debug, Serialize)]
+// struct Book {
+//     id: BookId,
+//     title: BookTitle,
+//     author: BookAuthor,       // FK
+//     publisher: BookPublisher, // FK
+//     price: BookPrice,
+//     quantity: BookQuantity,
+// }

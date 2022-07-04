@@ -1,7 +1,13 @@
-use sqlx::{Database, Pool, Sqlite};
+// use super::Repository;
+pub(crate) mod find_all;
 
-use super::Repository;
+pub(crate) struct BookRepo;
 
-pub(crate) struct BookRepo<DBDRIVER: Database>(Pool<DBDRIVER>);
+impl BookRepo {}
 
-impl Repository for BookRepo<Sqlite> {}
+// #[async_trait]
+// impl<'endpoint> Repository<'endpoint, Sqlite, (), ()> for BookRepo {
+//     async fn run(&'endpoint self, db_conn_pool: &Pool<Sqlite>, input: ()) -> AppResult<()> {
+//         Ok(())
+//     }
+// }

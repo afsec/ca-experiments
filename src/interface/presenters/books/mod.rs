@@ -1,9 +1,13 @@
 mod count;
 mod read_all;
 
+use crate::interface::repositories::book::find_all::Book;
+
 use super::{Presenter, X_TOTAL_COUNT};
 
-use self::read_all::{Book as BookfromReadAll, ReadAll};
+use self::read_all::ReadAll;
+
+
 use axum::{
     http::{HeaderMap, HeaderValue, StatusCode},
     Extension, Json,
@@ -15,7 +19,7 @@ pub(crate) struct BookPresenter;
 impl BookPresenter {
     pub(crate) async fn read_all(
         Extension(ref sqlite_pool): Extension<SqlitePool>,
-    ) -> Result<Json<Vec<BookfromReadAll>>, (StatusCode, String)> {
+    ) -> Result<Json<Vec<Book>>, (StatusCode, String)> {
         self::read_all::ReadAll::presenter(&ReadAll, sqlite_pool, ()).await
     }
 
