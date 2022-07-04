@@ -4,17 +4,16 @@
 // Save Book in our library
 // Fetch all books from our library
 
-struct Book;
+struct BookInteractor;
 
-impl Book {
+impl BookInteractor {
     pub (crate) fn save() {}
     pub (crate) fn fetch_all() {}
 }
 
 
-struct Author;
+struct AuthorInteractor;
 
-
-impl Author {
+impl AuthorInteractor {
     pub (crate) fn save() {}
 }
