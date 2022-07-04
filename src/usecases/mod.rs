@@ -7,13 +7,13 @@
 struct BookInteractor;
 
 impl BookInteractor {
-    pub (crate) fn save() {}
-    pub (crate) fn fetch_all() {}
+    pub (crate) fn save_book() {}
+    pub (crate) fn fetch_all_books() {}
 }
 
 
 struct AuthorInteractor;
 
 impl AuthorInteractor {
-    pub (crate) fn save() {}
+    pub (crate) fn save_author() {}
 }
