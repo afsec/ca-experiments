@@ -9,7 +9,7 @@ use sqlx::SqlitePool;
 pub(crate) const X_TOTAL_COUNT: &'static str = "X-Total-Count";
 
 #[async_trait]
-pub(crate) trait Endpoint<ENTITY: Serialize> {
+pub(crate) trait Crud<ENTITY: Serialize> {
     async fn read_all(
         db_driver: Extension<SqlitePool>,
     ) -> Result<Json<Vec<ENTITY>>, (StatusCode, String)>;

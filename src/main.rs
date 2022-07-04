@@ -45,16 +45,16 @@ use std::net::SocketAddr;
 use tower::ServiceBuilder;
 use tower_http::trace::TraceLayer;
 
-use crate::helper::{endpoint::Endpoint, sqlite::create_sqlite_pool};
+use crate::helpers::{crud::Crud, sqlite::create_sqlite_pool};
 
-mod api;
+mod interface;
 mod ca_design;
-mod helper;
+mod helpers;
 mod models;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    use crate::api::users::EndpointUsers;
+    use crate::interface::presenters::users::EndpointUsers;
 
     tracing_subscriber::fmt::init();
     // use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
@@ -74,9 +74,13 @@ async fn main() -> anyhow::Result<()> {
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 8000));
     // let sqlite_pool = create_sqlite_pool("./database.sqlite3").await?;
+    
+    // * Infrastructure (DB)
     let sqlite_pool = create_sqlite_pool(":memory:").await?;
 
-    let routes = Router::new()
+
+    // * Infrastructure (Router)
+    let users = Router::new()
         .route(
             "/users",
             get(EndpointUsers::read_all)
@@ -91,8 +95,9 @@ async fn main() -> anyhow::Result<()> {
         // )
         ;
 
-    let users = Router::new().merge(routes);
+    // let users = Router::new().merge(routes);
 
+    // * Infrastructure (Router)
     let app = Router::new()
         .nest("/api", users)
         .layer(ServiceBuilder::new().layer(Extension(sqlite_pool)))

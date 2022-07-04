@@ -1,5 +1,5 @@
 use crate::{
-    helper::endpoint::{Endpoint, X_TOTAL_COUNT},
+    helpers::crud::{Crud, X_TOTAL_COUNT},
     models::User,
 };
 use async_trait::async_trait;
@@ -13,7 +13,7 @@ use sqlx::SqlitePool;
 pub(crate) struct EndpointUsers;
 
 #[async_trait]
-impl Endpoint<User> for EndpointUsers {
+impl Crud<User> for EndpointUsers {
     async fn read_all(
         Extension(ref sqlite_pool): Extension<SqlitePool>,
     ) -> Result<Json<Vec<User>>, (StatusCode, String)> {
