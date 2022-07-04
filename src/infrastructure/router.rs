@@ -1,7 +1,7 @@
 use axum::Router;
 
 pub(crate) fn get_routes_users() -> Router {
-    use crate::helpers::crud::Crud;
+    use crate::interface::crud::Crud;
     use crate::interface::presenters::users::EndpointUsers;
     use axum::routing::get;
     Router::new().route(

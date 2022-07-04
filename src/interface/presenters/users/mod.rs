@@ -1,7 +1,5 @@
-use crate::{
-    helpers::crud::{Crud, X_TOTAL_COUNT},
-    models::User,
-};
+use crate::interface::crud::{Crud, X_TOTAL_COUNT};
+use crate::domain::user::User;
 use async_trait::async_trait;
 use axum::{
     http::{HeaderMap, HeaderValue, StatusCode},

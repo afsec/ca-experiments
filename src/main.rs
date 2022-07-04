@@ -41,9 +41,7 @@
 #![cfg_attr(test, allow(clippy::float_cmp))]
 
 mod ca_design;
-mod helpers;
-mod models;
-// Clean architecture
+// Clean architecture - Reference: https://github.com/vidu171/clean-architecture-go
 mod domain;
 mod infrastructure;
 mod interface;
@@ -97,3 +95,6 @@ async fn main() -> anyhow::Result<()> {
         .await?;
     Ok(())
 }
+
+
+// pub(crate) type AppResult<T> = anyhow::Result<T>;
