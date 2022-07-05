@@ -3,8 +3,8 @@ use axum::Json;
 use sqlx::Sqlite;
 
 use crate::{
-    domain::entities::author::AuthorId,
-    interface::{presenters::Presenter, repositories::author::create::NewAuthor},
+    domain::entities::author::AuthorId, interface::presenters::Presenter,
+    usecases::author::NewAuthor,
 };
 
 use super::Create;

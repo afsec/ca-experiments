@@ -1,15 +1,7 @@
 use super::AuthorRepo;
-use crate::{
-    domain::entities::author::{AuthorId, AuthorName},
-    AppResult, usecases::Interactor,
-};
-use serde::{Serialize, Deserialize};
-use sqlx::SqlitePool;
+use crate::{domain::entities::author::AuthorId, usecases::author::NewAuthor, AppResult};
 
-#[derive(Debug, Deserialize, Serialize)]
-pub(crate) struct NewAuthor {
-    pub(crate) name: Interactor<AuthorName>,
-}
+use sqlx::SqlitePool;
 
 impl AuthorRepo {
     pub(crate) async fn create(

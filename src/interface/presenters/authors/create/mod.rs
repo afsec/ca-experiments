@@ -1,6 +1,6 @@
 use crate::{
     domain::entities::author::AuthorId,
-    interface::{presenters::{Endpoint, Presenter}, repositories::author::create::NewAuthor},
+    interface::presenters::{Endpoint, Presenter}, usecases::author::NewAuthor,
 };
 
 use axum::{http::StatusCode, Json};
@@ -20,7 +20,7 @@ impl Endpoint for Create {}
 impl AuthorPresenter {
     pub(crate) async fn create(
         Extension(ref sqlite_pool): Extension<SqlitePool>,
-        Json(new_author): Json<NewAuthor>
+        Json(new_author): Json<NewAuthor>,
     ) -> Result<Json<AuthorId>, (StatusCode, String)> {
         Create::presenter(&Create, sqlite_pool, new_author).await
     }

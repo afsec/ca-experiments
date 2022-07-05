@@ -19,11 +19,11 @@ pub(crate) trait UseCase: DomainEntity {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub(crate) struct Interactor<T>(T)
+pub(crate) struct FieldInteractor<T>(T)
 where
     T: DomainEntity + UseCase;
 
-impl<T> Interactor<T>
+impl<T> FieldInteractor<T>
 where
     T: DomainEntity + UseCase + Sync,
 {

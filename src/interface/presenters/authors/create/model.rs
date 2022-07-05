@@ -1,6 +1,7 @@
 use super::Create;
 use crate::domain::entities::author::AuthorId;
-use crate::interface::repositories::author::create::NewAuthor;
+
+use crate::usecases::author::NewAuthor;
 use crate::{
     interface::{presenters::Model, repositories::author::AuthorRepo},
     AppResult,

@@ -1,11 +1,12 @@
 use async_trait::async_trait;
+use serde::{Deserialize, Serialize};
 
 use crate::{
     domain::entities::author::{AuthorId, AuthorName},
     AppResult,
 };
 
-use super::UseCase;
+use super::{UseCase, FieldInteractor};
 
 // * Id
 
@@ -23,4 +24,9 @@ impl UseCase for AuthorName {
     async fn validate_usecase(&self) -> AppResult<()> {
         Ok(())
     }
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub(crate) struct NewAuthor {
+    pub(crate) name: FieldInteractor<AuthorName>,
 }
