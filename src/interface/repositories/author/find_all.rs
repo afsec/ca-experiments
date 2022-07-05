@@ -12,12 +12,15 @@ pub(crate) struct AuthorFromSQLx {
     id: i64,
     name: String,
 }
-impl From<Author> for AuthorFromSQLx {
-    fn from(author: Author) -> Self {
-        Self {
-            id: author.id.into(),
-            name: author.name.into(),
-        }
+
+impl TryFrom<Author> for AuthorFromSQLx {
+    type Error = anyhow::Error;
+
+    fn try_from(author: Author) -> Result<Self, Self::Error> {
+        Ok(Self {
+            id: author.id.try_into()?,
+            name: author.name.try_into()?,
+        })
     }
 }
 
@@ -27,12 +30,14 @@ pub(crate) struct Author {
     name: AuthorName,
 }
 
-impl From<AuthorFromSQLx> for Author {
-    fn from(author: AuthorFromSQLx) -> Self {
-        Self {
-            id: author.id.into(),
-            name: author.name.into(),
-        }
+impl TryFrom<AuthorFromSQLx> for Author {
+    type Error = anyhow::Error;
+
+    fn try_from(author: AuthorFromSQLx) -> Result<Self, Self::Error> {
+        Ok(Self {
+            id: author.id.try_into()?,
+            name: author.name.try_into()?,
+        })
     }
 }
 
@@ -53,8 +58,11 @@ impl AuthorRepo {
 
         // * To improve performance -> https://github.com/launchbadge/sqlx/issues/117
 
-        let authors: Vec<Author> = records.into_iter().map(|record| record.into()).collect();
+        let authors: AppResult<Vec<Author>> = records
+            .into_iter()
+            .map(|record| Ok(record.try_into()?))
+            .collect();
         tracing::debug!("Authors: {:?}", &authors);
-        Ok(authors)
+        Ok(authors?)
     }
 }

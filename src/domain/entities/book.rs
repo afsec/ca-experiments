@@ -17,13 +17,3 @@ pub(crate) struct BookAuthor(u32);
 
 #[derive(Debug, Deserialize, Serialize)]
 pub(crate) struct BookPublisher(u32);
-
-// #[derive(Debug, Serialize)]
-// pub(crate) struct Book {
-//     id: BookId,
-//     title: BookTitle,
-//     author: BookAuthor,       // FK
-//     publisher: BookPublisher, // FK
-//     price: BookPrice,
-//     quantity: BookQuantity,
-// }

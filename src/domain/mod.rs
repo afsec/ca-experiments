@@ -6,19 +6,12 @@
 /// rule it should be independent of everything
 pub(crate) mod entities;
 
-
-
-
 use async_trait::async_trait;
 
 #[async_trait]
 pub(crate) trait DataValidator {
-    async fn validate(&self) -> crate::AppResult<()>
-    where
-        Self: Sized;
+    async fn is_valid(&self) -> bool;
 }
-
-
 
 /// Entity – an object with a persistent identity. Two entities whose attributes have the
 /// same values are still different objects. In a Java EE application, classes which are
