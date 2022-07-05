@@ -1,6 +1,8 @@
 // use super::Repository;
-pub(crate) mod read_all;
+pub(crate) mod count;
 pub(crate) mod create;
+pub(crate) mod read_all;
+
 pub(crate) struct AuthorRepo;
 
 impl AuthorRepo {}
