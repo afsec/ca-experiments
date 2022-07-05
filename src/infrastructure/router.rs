@@ -23,6 +23,6 @@ pub(crate) fn get_routes_authors() -> Router {
         "/authors",
         get(AuthorPresenter::read_all)
         // .head(AuthorPresenter::count)
-        // .post(AuthorPresenter::create)
+        .post(AuthorPresenter::create)
     )
 }

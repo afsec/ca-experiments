@@ -23,5 +23,15 @@
       }
     },
     "query": "\n            SELECT id, name\n            FROM `authors`;\n        "
+  },
+  "e4beb2c093cf3a49f1c5cfd139ae39d3ed003cc6f40240dce395a15d709c1f8f": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Right": 1
+      }
+    },
+    "query": "\n                INSERT INTO `authors` (\"name\")\n                VALUES (?1);\n            "
   }
 }

@@ -1,3 +1,5 @@
+use std::ops::Deref;
+
 use serde::{Deserialize, Serialize};
 
 // * Id
@@ -9,6 +11,12 @@ pub(crate) struct AuthorId(u32);
 impl From<AuthorId> for u32 {
     fn from(id: AuthorId) -> Self {
         id.0
+    }
+}
+
+impl From<u32> for AuthorId {
+    fn from(value: u32) -> Self {
+        Self(value)
     }
 }
 
@@ -31,6 +39,14 @@ impl TryFrom<AuthorId> for i64 {
 // * Name
 #[derive(Debug, Deserialize, Serialize)]
 pub(crate) struct AuthorName(String);
+
+impl Deref for AuthorName {
+    type Target = String;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
 
 impl From<AuthorName> for String {
     fn from(name: AuthorName) -> Self {
