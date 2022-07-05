@@ -14,7 +14,7 @@ impl<'endpoint> Model<'endpoint, Sqlite, (), Vec<Author>> for ReadAll {
     async fn model(
         &'endpoint self,
         db_conn_pool: &sqlx::Pool<Sqlite>,
-        submitted_data: (),
+        _submitted_data: (),
     ) -> AppResult<Vec<Author>> {
         AuthorRepo::read_all(db_conn_pool).await
     }
