@@ -4,7 +4,7 @@
 // Fetch all books from our library
 use crate::AppResult;
 
-struct BookInteractor();
+struct BookInteractor;
 
 impl BookInteractor {
     pub(crate) fn save_book() -> AppResult<()> {
