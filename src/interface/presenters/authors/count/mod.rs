@@ -6,7 +6,7 @@ use axum::{
     http::{HeaderMap, HeaderValue},
     Extension,
 };
-use serde::Serialize;
+
 use sqlx::SqlitePool;
 
 use super::AuthorPresenter;
@@ -42,15 +42,4 @@ impl AuthorPresenter {
     }
 }
 
-#[derive(Debug, Serialize)]
-pub(crate) struct AuthorsFound(u32);
-impl From<AuthorsFound> for String {
-    fn from(data: AuthorsFound) -> Self {
-        data.0.to_string()
-    }
-}
-impl From<u32> for AuthorsFound {
-    fn from(value: u32) -> Self {
-        Self(value)
-    }
-}
+
