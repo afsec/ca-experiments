@@ -25,3 +25,14 @@ pub(crate) fn get_routes_authors() -> Router {
             .post(AuthorPresenter::create),
     )
 }
+
+pub(crate) fn get_routes_publishers() -> Router {
+    use crate::interface::presenters::publishers::PublisherPresenter;
+    use axum::routing::get;
+    Router::new().route(
+        "/publishers",
+        get(PublisherPresenter::read_all)
+            .head(PublisherPresenter::count)
+            .post(PublisherPresenter::create),
+    )
+}

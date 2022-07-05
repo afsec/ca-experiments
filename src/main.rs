@@ -80,8 +80,9 @@ async fn main() -> anyhow::Result<()> {
 
     // * Infrastructure (Router)
     let routes = Router::new()
+        .merge(router::get_routes_authors())
         .merge(router::get_routes_books())
-        .merge(router::get_routes_authors());
+        .merge(router::get_routes_publishers());
 
     // * Infrastructure (Router)
     let app = Router::new()
