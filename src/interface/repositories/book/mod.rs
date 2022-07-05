@@ -1,5 +1,5 @@
 // use super::Repository;
-pub(crate) mod find_all;
+pub(crate) mod read_all;
 
 pub(crate) struct BookRepo;
 

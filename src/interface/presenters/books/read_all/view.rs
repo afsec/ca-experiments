@@ -1,5 +1,5 @@
 use super::ReadAll;
-use crate::interface::repositories::book::find_all::Book;
+use crate::interface::repositories::book::read_all::Book;
 use crate::{interface::presenters::View, AppResult};
 
 use async_trait::async_trait;

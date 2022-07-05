@@ -18,20 +18,8 @@ pub(crate) struct Book {
     quantity: BookQuantity,
 }
 
-// pub(crate) type BookFromSQLx = (
-//     BookId,
-//     BookTitle,
-//     BookAuthor,    // FK
-//     BookPublisher, // FK
-//     BookPrice,
-//     BookQuantity,
-// );
-
-// ? FromRow
-// TODO:
-
 impl BookRepo {
-    pub(crate) async fn find_all<DBDRIVER>(db_conn_pool: &Pool<DBDRIVER>) -> AppResult<Vec<Book>>
+    pub(crate) async fn read_all<DBDRIVER>(db_conn_pool: &Pool<DBDRIVER>) -> AppResult<Vec<Book>>
     where
         DBDRIVER: Database,
     {

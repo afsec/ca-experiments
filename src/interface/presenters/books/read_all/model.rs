@@ -1,6 +1,9 @@
 use super::ReadAll;
 use crate::{
-    interface::{presenters::Model, repositories::book::{BookRepo, find_all::Book}},
+    interface::{
+        presenters::Model,
+        repositories::book::{read_all::Book, BookRepo},
+    },
     AppResult,
 };
 use async_trait::async_trait;
@@ -13,7 +16,6 @@ impl<'endpoint> Model<'endpoint, Sqlite, (), Vec<Book>> for ReadAll {
         db_conn_pool: &sqlx::Pool<Sqlite>,
         submitted_data: (),
     ) -> AppResult<Vec<Book>> {
-        BookRepo::find_all(db_conn_pool).await
-        // Ok(vec![])
+        BookRepo::read_all(db_conn_pool).await
     }
 }

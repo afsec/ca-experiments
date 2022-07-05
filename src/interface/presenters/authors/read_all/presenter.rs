@@ -2,7 +2,7 @@ use async_trait::async_trait;
 use axum::Json;
 use sqlx::Sqlite;
 
-use crate::interface::{presenters::Presenter, repositories::author::find_all::Author};
+use crate::interface::{presenters::Presenter, repositories::author::read_all::Author};
 
 use super::ReadAll;
 

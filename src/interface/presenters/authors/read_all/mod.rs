@@ -1,6 +1,6 @@
 use crate::interface::{
     presenters::{Endpoint, Presenter},
-    repositories::author::find_all::Author,
+    repositories::author::read_all::Author,
 };
 
 use axum::{http::StatusCode, Json};

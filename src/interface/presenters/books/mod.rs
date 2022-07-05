@@ -1,7 +1,7 @@
 mod count;
 mod read_all;
 
-use crate::interface::repositories::book::find_all::Book;
+use crate::interface::repositories::book::read_all::Book;
 
 use super::{Presenter, X_TOTAL_COUNT};
 

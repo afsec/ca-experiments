@@ -41,28 +41,23 @@ impl TryFrom<AuthorFromSQLx> for Author {
     }
 }
 
-// ? FromRow
-// TODO:
-
 impl AuthorRepo {
-    pub(crate) async fn find_all(db_conn_pool: &SqlitePool) -> AppResult<Vec<Author>> {
-        let records: Vec<AuthorFromSQLx> = sqlx::query_as!(
-            AuthorFromSQLx,
+    pub(crate) async fn create(db_conn_pool: &SqlitePool, new_author: NewAuthor) -> AppResult<AuthorId> {
+        let new_department_oid = DepartmentOid::new(option_oid_pool).await?;
+        let name = &(*new_department.name);
+        let created_at: NaiveDateTime = DepartmentCreatedAt::now().into();
+        let updated_at = &created_at;
+        let _ = sqlx::query!(
             r#"
-            SELECT id, name
-            FROM `authors`;
-        "#,
+                INSERT INTO `departments` ("oid","name","created_at","updated_at","is_deleted")
+                VALUES (?1,?2,?3,?4,0);
+            "#,
+            *new_department_oid,
+            name,
+            created_at,
+            updated_at
         )
-        .fetch_all(db_conn_pool)
+        .execute(db_conn_pool)
         .await?;
-
-        // * To improve performance -> https://github.com/launchbadge/sqlx/issues/117
-
-        let authors: AppResult<Vec<Author>> = records
-            .into_iter()
-            .map(|record| Ok(record.try_into()?))
-            .collect();
-        tracing::debug!("Authors: {:?}", &authors);
-        Ok(authors?)
     }
 }
