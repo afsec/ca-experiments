@@ -1,6 +1,11 @@
 use std::ops::Deref;
 
+use async_trait::async_trait;
 use serde::{Deserialize, Serialize};
+
+use crate::AppResult;
+
+use super::DomainEntity;
 
 // * Id
 #[derive(Debug, Deserialize, Serialize)]
@@ -36,6 +41,14 @@ impl TryFrom<BookId> for i64 {
     }
 }
 
+#[async_trait]
+impl DomainEntity for BookId {
+    async fn validate_entity(&self) -> AppResult<()> {
+        Ok(())
+    }
+}
+
+
 // * Title
 #[derive(Debug, Deserialize, Serialize)]
 pub(crate) struct BookTitle(String);
@@ -59,6 +72,16 @@ impl From<String> for BookTitle {
         Self(value)
     }
 }
+
+
+#[async_trait]
+impl DomainEntity for BookTitle {
+    async fn validate_entity(&self) -> AppResult<()> {
+        Ok(())
+    }
+}
+
+// * Price
 
 #[derive(Debug, Deserialize, Serialize, Default)]
 pub(crate) struct BookPrice(u32);
@@ -152,3 +175,4 @@ impl TryFrom<i64> for BookPublisher {
         Ok(Self(u32::try_from(value)?))
     }
 }
+

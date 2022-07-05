@@ -1,24 +1,32 @@
+use async_trait::async_trait;
+
+use crate::{domain::entities::DomainEntity, AppResult};
+
 /// Application-specific business logic for our Library app.
 // Save Author in our library
 // Save Book in our library
 // Fetch all books from our library
-use crate::AppResult;
+pub(crate) mod author;
+pub(crate) mod book;
+pub(crate) mod publisher;
 
-struct BookInteractor;
-
-impl BookInteractor {
-    pub(crate) fn save_book() -> AppResult<()> {
-        Ok(())
-    }
-    pub(crate) fn fetch_all_books() -> AppResult<()> {
-        Ok(())
-    }
+#[async_trait]
+pub(crate) trait UseCase: DomainEntity {
+    async fn validate_usecase(self) -> AppResult<Interactor<Self>>
+    where
+        Self: DomainEntity + UseCase + Sized + Sync;
 }
 
-struct AuthorInteractor;
+#[derive(Debug)]
+pub(crate) struct Interactor<T>(T)
+where
+    T: DomainEntity + UseCase;
 
-impl AuthorInteractor {
-    pub(crate) fn save_author() -> AppResult<()> {
-        Ok(())
+impl<T> Interactor<T>
+where
+    T: DomainEntity + UseCase,
+{
+    async fn new(data: T) -> Self {
+        Self(data)
     }
 }

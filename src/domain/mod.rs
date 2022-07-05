@@ -8,15 +8,14 @@ pub(crate) mod entities;
 
 use async_trait::async_trait;
 
+use crate::AppResult;
+
 #[async_trait]
 pub(crate) trait DataValidator {
-    async fn is_valid(&self) -> bool;
+    async fn validate_data(&self) -> AppResult<()>;
 }
 
-/// Entity – an object with a persistent identity. Two entities whose attributes have the
-/// same values are still different objects. In a Java EE application, classes which are
-/// persisted using JPA @Entity are usually DDD entities.
-pub(crate) trait Entity {}
+
 
 /// Service – an object that implements business logic which doesn’t belong in an entity or
 ///  a value object.

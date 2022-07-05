@@ -1,6 +1,11 @@
 use std::ops::Deref;
 
+use async_trait::async_trait;
 use serde::{Deserialize, Serialize};
+
+use crate::AppResult;
+
+use super::DomainEntity;
 
 // * Id
 #[derive(Debug, Deserialize, Serialize)]
@@ -36,6 +41,13 @@ impl TryFrom<PublisherId> for i64 {
     }
 }
 
+#[async_trait]
+impl DomainEntity for PublisherId {
+    async fn validate_entity(&self) -> AppResult<()> {
+        Ok(())
+    }
+}
+
 // * Name
 #[derive(Debug, Deserialize, Serialize)]
 pub(crate) struct PublisherName(String);
@@ -57,5 +69,12 @@ impl From<PublisherName> for String {
 impl From<String> for PublisherName {
     fn from(value: String) -> Self {
         Self(value)
+    }
+}
+
+#[async_trait]
+impl DomainEntity for PublisherName {
+    async fn validate_entity(&self) -> AppResult<()> {
+        Ok(())
     }
 }
