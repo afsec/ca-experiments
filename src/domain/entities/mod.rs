@@ -12,5 +12,7 @@ pub(crate) mod publisher;
 /// persisted using JPA @Entity are usually DDD entities.
 #[async_trait]
 pub(crate) trait DomainEntity {
-    async fn validate_entity(&self) -> AppResult<()>;
+    async fn validate_entity(&self) -> AppResult<()>
+    where
+        Self: Sized + Sync;
 }

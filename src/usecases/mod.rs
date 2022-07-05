@@ -1,4 +1,5 @@
 use async_trait::async_trait;
+use serde::{Deserialize, Serialize};
 
 use crate::{domain::entities::DomainEntity, AppResult};
 
@@ -12,21 +13,23 @@ pub(crate) mod publisher;
 
 #[async_trait]
 pub(crate) trait UseCase: DomainEntity {
-    async fn validate_usecase(self) -> AppResult<Interactor<Self>>
+    async fn validate_usecase(&self) -> AppResult<()>
     where
-        Self: DomainEntity + UseCase + Sized + Sync;
+        Self: DomainEntity + Sized + Sync;
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 pub(crate) struct Interactor<T>(T)
 where
     T: DomainEntity + UseCase;
 
 impl<T> Interactor<T>
 where
-    T: DomainEntity + UseCase,
+    T: DomainEntity + UseCase + Sync,
 {
-    async fn new(data: T) -> Self {
-        Self(data)
+    pub(crate) async fn interact(self) -> AppResult<T> {
+        self.0.validate_entity().await?;
+        self.0.validate_usecase().await?;
+        Ok(self.0)
     }
 }

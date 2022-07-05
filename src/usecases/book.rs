@@ -5,14 +5,14 @@ use crate::{
     AppResult,
 };
 
-use super::{UseCase, Interactor};
+use super::UseCase;
 
 // * Id
 
 #[async_trait]
 impl UseCase for BookId {
-    async fn validate_usecase(self) -> AppResult<Interactor<BookId>> {
-        Ok(Interactor(self))
+    async fn validate_usecase(&self) -> AppResult<()> {
+        Ok(())
     }
 }
 
@@ -20,7 +20,7 @@ impl UseCase for BookId {
 
 #[async_trait]
 impl UseCase for BookTitle {
-    async fn validate_usecase(self) -> AppResult<Interactor<BookTitle>> {
-        Ok(Interactor(self))
+    async fn validate_usecase(&self) -> AppResult<()> {
+        Ok(())
     }
 }
