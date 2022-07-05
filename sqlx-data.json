@@ -1,5 +1,53 @@
 {
   "db": "SQLite",
+  "08c8867789a1d93825734f57d6aa3313fb2d80596bf601c324647b357b9be6b5": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Int64"
+        },
+        {
+          "name": "title",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "price",
+          "ordinal": 2,
+          "type_info": "Int64"
+        },
+        {
+          "name": "quantity",
+          "ordinal": 3,
+          "type_info": "Int64"
+        },
+        {
+          "name": "author",
+          "ordinal": 4,
+          "type_info": "Int64"
+        },
+        {
+          "name": "publisher",
+          "ordinal": 5,
+          "type_info": "Int64"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n            SELECT id, title, price, quantity, author, publisher\n            FROM `books`;\n        "
+  },
   "533d05d122cc9dc72321d4ab3bc4d275ca87da738b53603e35debb60135a6d58": {
     "describe": {
       "columns": [
@@ -23,6 +71,16 @@
       }
     },
     "query": "\n            SELECT id, name\n            FROM `publishers`;\n        "
+  },
+  "94cdbb304bc819d4fda07cd967fdcfdb57c88a8ceeaca238b99e8ca0655f599b": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Right": 5
+      }
+    },
+    "query": "\n                INSERT INTO `books` (\"title\",\"price\",\"quantity\",\"author\",\"publisher\")\n                VALUES (?1,?2,?3,?4,?5);\n            "
   },
   "9dc580a8c5a2a8f2c2faebe897b67b292c4dc9576edbb12627bc756dd5179de6": {
     "describe": {
@@ -93,6 +151,24 @@
       }
     },
     "query": "\n                SELECT COUNT(*) as count FROM `publishers`;\n            "
+  },
+  "f1bbd4e2a1f4fc8652acec35fb15869176136c8ad477850f238361dcf594bc7d": {
+    "describe": {
+      "columns": [
+        {
+          "name": "count",
+          "ordinal": 0,
+          "type_info": "Int"
+        }
+      ],
+      "nullable": [
+        false
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT COUNT(*) as count FROM `books`;\n            "
   },
   "f6c60713e00fb3a1dd3845b38a54eb32010645fafdd785900c9e700122ae81ec": {
     "describe": {

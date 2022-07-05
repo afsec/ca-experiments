@@ -17,6 +17,6 @@ CREATE TABLE "books" (
 	"quantity"	INTEGER NOT NULL,
 	"author"	INTEGER NOT NULL,
 	"publisher"	INTEGER NOT NULL,
-	FOREIGN KEY("publisher") REFERENCES "publisher"("id"),
-	FOREIGN KEY("author") REFERENCES "author"("id")
+	FOREIGN KEY("publisher") REFERENCES "publishers"("id"),
+	FOREIGN KEY("author") REFERENCES "authors"("id")
 );

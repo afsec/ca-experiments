@@ -5,7 +5,9 @@ pub(crate) fn get_routes_books() -> Router {
     use axum::routing::get;
     Router::new().route(
         "/books",
-        get(BookPresenter::read_all).head(BookPresenter::count), // .post(BookPresenter::create)
+        get(BookPresenter::read_all)
+            .head(BookPresenter::count)
+            .post(BookPresenter::create),
     )
     // .route(
     //     "/books/:id",
