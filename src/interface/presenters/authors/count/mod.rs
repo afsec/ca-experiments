@@ -41,5 +41,3 @@ impl AuthorPresenter {
         Ok((headers, ()))
     }
 }
-
-

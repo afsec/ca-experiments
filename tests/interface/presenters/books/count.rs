@@ -46,7 +46,7 @@ impl CountTableBooksWI {
                 // 3. Compare parsed data from response against `Expect`
                 assert_eq!(self.expect, x_total_count);
             }
-        }       
+        }
     }
 }
 

@@ -6,27 +6,25 @@ use crate::{
     AppResult,
 };
 
-use super::{UseCase, FieldInteractor};
+use super::{FieldInteractor, UseCaseValidator};
 
 // * Id
-
 #[async_trait]
-impl UseCase for AuthorId {
+impl UseCaseValidator for AuthorId {
     async fn validate_usecase(&self) -> AppResult<()> {
         Ok(())
     }
 }
 
 // * Name
-
 #[async_trait]
-impl UseCase for AuthorName {
+impl UseCaseValidator for AuthorName {
     async fn validate_usecase(&self) -> AppResult<()> {
         Ok(())
     }
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize)]
 pub(crate) struct NewAuthor {
     pub(crate) name: FieldInteractor<AuthorName>,
 }

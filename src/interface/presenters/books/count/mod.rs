@@ -41,5 +41,3 @@ impl BookPresenter {
         Ok((headers, ()))
     }
 }
-
-

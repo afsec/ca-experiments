@@ -3,7 +3,7 @@ use crate::{
     domain::entities::publisher::{PublisherId, PublisherName},
     AppResult,
 };
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use sqlx::SqlitePool;
 
 #[derive(Debug, Deserialize, Serialize)]

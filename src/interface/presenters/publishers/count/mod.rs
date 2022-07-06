@@ -41,5 +41,3 @@ impl PublisherPresenter {
         Ok((headers, ()))
     }
 }
-
-

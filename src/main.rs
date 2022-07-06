@@ -42,6 +42,7 @@
 
 // Clean architecture - Reference: https://github.com/vidu171/clean-architecture-go
 mod domain;
+mod error;
 mod infrastructure;
 mod interface;
 mod usecases;

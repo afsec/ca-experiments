@@ -26,22 +26,18 @@ where
         submitted_data: INPUTDATA,
     ) -> AppResult<OUTCOME>
     where
-        INPUTDATA: 'async_trait,
-        Self: Sized;
+        INPUTDATA: 'async_trait;
 }
 
 #[async_trait]
 trait View<'endpoint, OUTCOME, INTORESPONSE>
 where
     OUTCOME: Serialize + Send,
-    INTORESPONSE: Sized,
 {
     async fn view(
         &'endpoint self,
         result: AppResult<OUTCOME>,
-    ) -> Result<INTORESPONSE, (StatusCode, String)>
-    where
-        Self: Sized;
+    ) -> Result<INTORESPONSE, (StatusCode, String)>;
 }
 
 #[async_trait]
@@ -57,7 +53,6 @@ where
     DBDRIVER: Database,
     INPUTDATA: Send + Sync,
     OUTCOME: Serialize + Send,
-    INTORESPONSE: Sized,
 {
     async fn presenter(
         endpoint: &'endpoint ENDPOINT,

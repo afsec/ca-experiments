@@ -7,4 +7,7 @@ use crate::interface::{presenters::Presenter, repositories::author::read_all::Au
 use super::ReadAll;
 
 #[async_trait]
-impl<'endpoint> Presenter<'endpoint, ReadAll, Sqlite, (), Vec<Author>, Json<Vec<Author>>> for ReadAll {}
+impl<'endpoint> Presenter<'endpoint, ReadAll, Sqlite, (), Vec<Author>, Json<Vec<Author>>>
+    for ReadAll
+{
+}

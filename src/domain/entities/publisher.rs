@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::AppResult;
 
-use super::DomainEntity;
+use super::DomainEntityValidator;
 
 // * Id
 #[derive(Debug, Deserialize, Serialize)]
@@ -42,7 +42,7 @@ impl TryFrom<PublisherId> for i64 {
 }
 
 #[async_trait]
-impl DomainEntity for PublisherId {
+impl DomainEntityValidator for PublisherId {
     async fn validate_entity(&self) -> AppResult<()> {
         Ok(())
     }
@@ -73,7 +73,7 @@ impl From<String> for PublisherName {
 }
 
 #[async_trait]
-impl DomainEntity for PublisherName {
+impl DomainEntityValidator for PublisherName {
     async fn validate_entity(&self) -> AppResult<()> {
         Ok(())
     }

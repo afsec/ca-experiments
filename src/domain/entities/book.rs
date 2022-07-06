@@ -1,11 +1,11 @@
 use std::ops::Deref;
 
 use async_trait::async_trait;
-use serde::{Deserialize, Serialize};
+use serde::{de, Deserialize, Serialize};
 
-use crate::AppResult;
+use crate::{error::AppError, AppResult};
 
-use super::DomainEntity;
+use super::DomainEntityValidator;
 
 // * Id
 #[derive(Debug, Deserialize, Serialize)]
@@ -42,12 +42,11 @@ impl TryFrom<BookId> for i64 {
 }
 
 #[async_trait]
-impl DomainEntity for BookId {
+impl DomainEntityValidator for BookId {
     async fn validate_entity(&self) -> AppResult<()> {
         Ok(())
     }
 }
-
 
 // * Title
 #[derive(Debug, Deserialize, Serialize)]
@@ -73,9 +72,8 @@ impl From<String> for BookTitle {
     }
 }
 
-
 #[async_trait]
-impl DomainEntity for BookTitle {
+impl DomainEntityValidator for BookTitle {
     async fn validate_entity(&self) -> AppResult<()> {
         Ok(())
     }
@@ -95,7 +93,7 @@ impl Deref for BookPrice {
 }
 
 impl TryFrom<i64> for BookPrice {
-    type Error = anyhow::Error;
+    type Error = AppError;
 
     fn try_from(value: i64) -> Result<Self, Self::Error> {
         Ok(Self(u32::try_from(value)?))
@@ -111,7 +109,7 @@ impl TryInto<f64> for &BookPrice {
 }
 
 impl TryFrom<f64> for BookPrice {
-    type Error = anyhow::Error;
+    type Error = AppError;
 
     fn try_from(value: f64) -> Result<Self, Self::Error> {
         let number = u32::try_from((value * 100.0).floor() as u64)?;
@@ -175,4 +173,3 @@ impl TryFrom<i64> for BookPublisher {
         Ok(Self(u32::try_from(value)?))
     }
 }
-

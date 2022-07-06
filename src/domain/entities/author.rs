@@ -3,9 +3,9 @@ use std::ops::Deref;
 use async_trait::async_trait;
 use serde::{Deserialize, Serialize};
 
-use crate::AppResult;
+use crate::{domain::DataValidator, AppResult};
 
-use super::DomainEntity;
+use super::DomainEntityValidator;
 
 // * Id
 #[derive(Debug, Deserialize, Serialize)]
@@ -42,7 +42,7 @@ impl TryFrom<AuthorId> for i64 {
 }
 
 #[async_trait]
-impl DomainEntity for AuthorId {
+impl DomainEntityValidator for AuthorId {
     async fn validate_entity(&self) -> AppResult<()> {
         Ok(())
     }
@@ -72,10 +72,23 @@ impl From<String> for AuthorName {
     }
 }
 
+#[async_trait]
+impl DomainEntityValidator for AuthorName {
+    async fn validate_entity(&self) -> AppResult<()> {
+        Ok(())
+    }
+}
 
 #[async_trait]
-impl DomainEntity for AuthorName {
-    async fn validate_entity(&self) -> AppResult<()> {
+impl DataValidator for AuthorName {
+    async fn validate_data(&self) -> AppResult<()> {
+        if self
+            .0
+            .chars()
+            .all(|c| c.is_alphabetic() || c.is_whitespace() || c == '\'')
+        {
+            return Err(anyhow::Error::msg("Invalid char on author field"));
+        }
         Ok(())
     }
 }

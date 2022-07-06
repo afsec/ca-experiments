@@ -1,6 +1,7 @@
 use crate::{
     domain::entities::author::AuthorId,
-    interface::presenters::{Endpoint, Presenter}, usecases::author::NewAuthor,
+    interface::presenters::{Endpoint, Presenter},
+    usecases::author::NewAuthor,
 };
 
 use axum::{http::StatusCode, Json};

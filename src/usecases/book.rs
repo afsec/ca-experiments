@@ -5,12 +5,12 @@ use crate::{
     AppResult,
 };
 
-use super::UseCase;
+use super::UseCaseValidator;
 
 // * Id
 
 #[async_trait]
-impl UseCase for BookId {
+impl UseCaseValidator for BookId {
     async fn validate_usecase(&self) -> AppResult<()> {
         Ok(())
     }
@@ -19,7 +19,7 @@ impl UseCase for BookId {
 // * Name
 
 #[async_trait]
-impl UseCase for BookTitle {
+impl UseCaseValidator for BookTitle {
     async fn validate_usecase(&self) -> AppResult<()> {
         Ok(())
     }

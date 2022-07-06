@@ -15,8 +15,6 @@ pub(crate) trait DataValidator {
     async fn validate_data(&self) -> AppResult<()>;
 }
 
-
-
 /// Service – an object that implements business logic which doesn’t belong in an entity or
 ///  a value object.
 pub(crate) trait Service {}

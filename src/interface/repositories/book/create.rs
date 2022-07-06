@@ -45,7 +45,12 @@ pub(in crate) fn price_from_f64<'de, D>(d: D) -> Result<BookPrice, D::Error>
 where
     D: de::Deserializer<'de>,
 {
-    Ok(BookPrice::try_from(d.deserialize_f64(BookPriceVisitor)?).unwrap_or_default())
+    Ok(
+        BookPrice::try_from(d.deserialize_f64(BookPriceVisitor)?).map_err(|error| {
+            tracing::error!("{error:?}");
+            serde::de::Error::custom(format!("Can't deserizalize f64. Reason: [{error}]"))
+        })?,
+    )
 }
 // Visitor to help deserialize f64 to `BookPrice`
 struct BookPriceVisitor;
