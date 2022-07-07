@@ -3,7 +3,7 @@ use std::ops::Deref;
 use async_trait::async_trait;
 use serde::{Deserialize, Serialize};
 
-use crate::AppResult;
+use crate::{AppResult, domain::DataValidator};
 
 use super::DomainEntityValidator;
 
@@ -42,11 +42,19 @@ impl TryFrom<PublisherId> for i64 {
 }
 
 #[async_trait]
+impl DataValidator for PublisherId {
+    async fn validate_data(&self) -> AppResult<()> {
+        Ok(())
+    }
+}
+
+#[async_trait]
 impl DomainEntityValidator for PublisherId {
     async fn validate_entity(&self) -> AppResult<()> {
         Ok(())
     }
 }
+
 
 // * Name
 #[derive(Debug, Deserialize, Serialize)]
@@ -69,6 +77,13 @@ impl From<PublisherName> for String {
 impl From<String> for PublisherName {
     fn from(value: String) -> Self {
         Self(value)
+    }
+}
+
+#[async_trait]
+impl DataValidator for PublisherName {
+    async fn validate_data(&self) -> AppResult<()> {
+        Ok(())
     }
 }
 

@@ -42,6 +42,13 @@ impl TryFrom<AuthorId> for i64 {
 }
 
 #[async_trait]
+impl DataValidator for AuthorId {
+    async fn validate_data(&self) -> AppResult<()> {
+        Ok(())
+    }
+}
+
+#[async_trait]
 impl DomainEntityValidator for AuthorId {
     async fn validate_entity(&self) -> AppResult<()> {
         Ok(())
