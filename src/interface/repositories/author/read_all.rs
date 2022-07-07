@@ -26,6 +26,17 @@ struct AuthorInteractor {
     name: FieldInteractor<AuthorName>,
 }
 
+impl TryFrom<AuthorFromSQLx> for AuthorInteractor {
+    type Error = anyhow::Error;
+
+    fn try_from(data: AuthorFromSQLx) -> Result<Self, Self::Error> {
+        let AuthorFromSQLx { id, name } = data;
+        Ok(AuthorInteractor {
+            id: FieldInteractor::from(AuthorId::try_from(id)?),
+            name: FieldInteractor::from(AuthorName::from(name)),
+        })
+    }
+}
 impl AuthorInteractor {
     async fn interact(self) -> AppResult<Author> {
         let Self { id, name } = self;
@@ -35,27 +46,6 @@ impl AuthorInteractor {
         })
     }
 }
-// impl TryFrom<Author> for AuthorFromSQLx {
-//     type Error = anyhow::Error;
-
-//     fn try_from(author: Author) -> Result<Self, Self::Error> {
-//         Ok(Self {
-//             id: author.id.try_into()?,
-//             name: author.name.try_into()?,
-//         })
-//     }
-// }
-
-// impl TryFrom<AuthorFromSQLx> for Author {
-//     type Error = anyhow::Error;
-
-//     fn try_from(author: AuthorFromSQLx) -> Result<Self, Self::Error> {
-//         Ok(Self {
-//             id: author.id.try_into()?,
-//             name: author.name.try_into()?,
-//         })
-//     }
-// }
 
 impl AuthorRepo {
     pub(crate) async fn read_all(db_conn_pool: &SqlitePool) -> AppResult<Vec<Author>> {
@@ -74,10 +64,9 @@ impl AuthorRepo {
         let authors: Vec<AuthorInteractor> = records
             .into_iter()
             .map(|record| {
-                let AuthorFromSQLx { id, name } = record;
-                Ok(AuthorInteractor {
-                    id: FieldInteractor::from(AuthorId::try_from(id)?),
-                    name: FieldInteractor::from(AuthorName::from(name)),
+                AuthorInteractor::try_from(record).map_err(|error| {
+                    tracing::error!("{error:?} - (file: {}, line: {})", file!(), line!());
+                    error
                 })
             })
             .filter_map(|record: AppResult<AuthorInteractor>| record.ok())
