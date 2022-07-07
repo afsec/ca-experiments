@@ -83,7 +83,8 @@ async fn main() -> anyhow::Result<()> {
     let routes = Router::new()
         .merge(router::get_routes_authors())
         .merge(router::get_routes_books())
-        .merge(router::get_routes_publishers());
+        .merge(router::get_routes_publishers())
+        .merge(router::get_routes_orders());
 
     // * Infrastructure (Router)
     let app = Router::new()

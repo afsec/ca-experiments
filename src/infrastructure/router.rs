@@ -38,3 +38,14 @@ pub(crate) fn get_routes_publishers() -> Router {
             .post(PublisherPresenter::create),
     )
 }
+
+pub(crate) fn get_routes_orders() -> Router {
+    use crate::interface::presenters::orders::OrderPresenter;
+    use axum::routing::get;
+    Router::new().route(
+        "/orders",
+        get(OrderPresenter::read_all)
+            .head(OrderPresenter::count)
+            .post(OrderPresenter::create),
+    )
+}
