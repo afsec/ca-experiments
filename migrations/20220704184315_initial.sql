@@ -28,16 +28,16 @@ CREATE TABLE "books" (
 
 CREATE TABLE "orders" (
 	"id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-	"description" TEXT NULL,
+	"description" TEXT NULL
 	-- "user" INTEGER NOT NULL,
 	-- FOREIGN KEY("user") REFERENCES "users"("id")
 );
 
-CREATE TABLE "orders_books" (
+CREATE TABLE "carts" (
 		"id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
 		"order" INTEGER NOT NULL,
 		"book"  INTEGER NOT NULL,
 		"price"	INTEGER NOT NULL,
-		FOREIGN KEY("order") REFERENCES "orders"("id")
+		FOREIGN KEY("order") REFERENCES "orders"("id"),
 		FOREIGN KEY("book") REFERENCES "books"("id")
 );
