@@ -89,10 +89,11 @@ impl DomainEntityValidator for AuthorName {
 #[async_trait]
 impl DataValidator for AuthorName {
     async fn validate_data(&self) -> AppResult<()> {
+        use std::ops::Not;
         if self
             .0
             .chars()
-            .all(|c| c.is_alphabetic() || c.is_whitespace() || c == '\'')
+            .all(|c: char| (c.is_alphabetic() || c.is_whitespace() || c == '\'').not())
         {
             return Err(anyhow::Error::msg("Invalid char on author field"));
         }
