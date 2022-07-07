@@ -35,7 +35,7 @@ CREATE TABLE "orders" (
 
 CREATE TABLE "carts" (
 		"id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-		"name" TEXT NOT NULL,
+		"name" TEXT NOT NULL
 );
 
 CREATE TABLE "cart_items" (
