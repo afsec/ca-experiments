@@ -11,6 +11,13 @@ use super::DomainEntityValidator;
 #[derive(Debug, Deserialize, Serialize)]
 pub(crate) struct BookId(u32);
 
+impl Deref for BookId {
+    type Target = u32;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
 // TODO: Implement Validator
 
 impl From<BookId> for u32 {

@@ -57,7 +57,7 @@ pub(crate) fn get_routes_carts() -> Router {
         "/carts",
         get(CartPresenter::read_all)
             .head(CartPresenter::count)
-            // .put(CartPresenter::add_item),
+            .put(CartPresenter::add_item)
             .post(CartPresenter::create),
     )
 }

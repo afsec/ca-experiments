@@ -1,4 +1,4 @@
-use super::CartRepo;
+use super::{read_all_items::CartItem, CartRepo};
 use crate::{
     domain::entities::cart::{CartId, CartName},
     AppResult,
@@ -28,6 +28,7 @@ impl TryFrom<Cart> for CartFromSQLx {
 pub(crate) struct Cart {
     id: CartId,
     name: CartName,
+    items: Option<Vec<CartItem>>,
 }
 
 impl TryFrom<CartFromSQLx> for Cart {
@@ -37,6 +38,7 @@ impl TryFrom<CartFromSQLx> for Cart {
         Ok(Self {
             id: cart.id.try_into()?,
             name: cart.name.try_into()?,
+            items: None,
         })
     }
 }
@@ -55,11 +57,27 @@ impl CartRepo {
 
         // * To improve performance -> https://github.com/launchbadge/sqlx/issues/117
 
-        let carts: AppResult<Vec<Cart>> = records
-            .into_iter()
-            .map(|record| Ok(record.try_into()?))
-            .collect();
+        // let carts: AppResult<Vec<Cart>> = records
+        //     .into_iter()
+        //     .map(|record| Ok(record.try_into()?))
+        //     .collect();
+
+        let mut carts: Vec<Cart> = Vec::new();
+        for cart_from_sqlx in records.into_iter() {
+            let cart_id: CartId = cart_from_sqlx.id.try_into()?;
+            let items = CartRepo::read_all_items(db_conn_pool, &cart_id).await?;
+            carts.push(Cart {
+                id: cart_id,
+                name: cart_from_sqlx.name.try_into()?,
+                items: Some(items),
+            })
+        }
+        // records
+        //     .into_iter()
+        //     .map(|record| Ok(record.try_into()?))
+        //     .collect();
+
         tracing::debug!("Carts: {:?}", &carts);
-        Ok(carts?)
+        Ok(carts)
     }
 }

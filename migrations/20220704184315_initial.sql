@@ -40,13 +40,11 @@ CREATE TABLE "carts" (
 
 CREATE TABLE "cart_items" (
 		"id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-		"name" TEXT NOT NULL,
-		"order" INTEGER NOT NULL,
-		"cart" INTEGER NOT NULL,
-		"book"  INTEGER NOT NULL,
-		"price"	INTEGER NOT NULL,
-		FOREIGN KEY("order") REFERENCES "orders"("id"),
-		FOREIGN KEY("cart") REFERENCES "cart"("id"),
-		FOREIGN KEY("book") REFERENCES "books"("id")
+		"order_id" INTEGER NOT NULL,
+		"cart_id" INTEGER NOT NULL,
+		"book_id"  INTEGER NOT NULL,
+		FOREIGN KEY("order_id") REFERENCES "orders"("id"),
+		FOREIGN KEY("cart_id") REFERENCES "carts"("id"),
+		FOREIGN KEY("book_id") REFERENCES "books"("id")
 );
 

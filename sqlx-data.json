@@ -194,6 +194,16 @@
     },
     "query": "\n                SELECT COUNT(*) as count FROM `authors`;\n            "
   },
+  "c8652c5e5e6042d625293a4000252812e1056b0fbcba2cd6a878ee214d072f09": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Right": 3
+      }
+    },
+    "query": "\n                INSERT INTO `cart_items` (\"order_id\",\"cart_id\",\"book_id\")\n                VALUES (?1,?2,?3);\n            "
+  },
   "c866c086579a17ff1c233835731ef19dc805356f74fd097433a1b938da0a41d2": {
     "describe": {
       "columns": [
@@ -217,6 +227,42 @@
       }
     },
     "query": "\n            SELECT id, name\n            FROM `carts`;\n        "
+  },
+  "dcbcf038d02b116b707c743bd1f6707d559c0d6a5fbc3aa40b10228c7e86c8d4": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Int64"
+        },
+        {
+          "name": "order_id",
+          "ordinal": 1,
+          "type_info": "Int64"
+        },
+        {
+          "name": "cart_id",
+          "ordinal": 2,
+          "type_info": "Int64"
+        },
+        {
+          "name": "book_id",
+          "ordinal": 3,
+          "type_info": "Int64"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Right": 1
+      }
+    },
+    "query": "\n            SELECT id,order_id,cart_id,book_id\n            FROM `cart_items` WHERE cart_id = ?1;\n        "
   },
   "df6bd6a1fac0d8a00e3e692e5ec4dd090a22950856a79f5abbc191ca1e5f17e2": {
     "describe": {
