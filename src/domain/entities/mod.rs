@@ -1,7 +1,7 @@
 use async_trait::async_trait;
 
-use crate::AppResult;
 use super::DataValidator;
+use crate::AppResult;
 
 pub(crate) mod author;
 pub(crate) mod book;
@@ -12,9 +12,7 @@ pub(crate) mod publisher;
 /// persisted using JPA @Entity are usually DDD entities.
 #[async_trait]
 pub(crate) trait DomainEntityValidator: DataValidator {
-    async fn validate_entity(&self) -> AppResult<()>
-    where
-        Self: Sync;
+    async fn validate_entity(&self) -> AppResult<()>;
 }
 
 // TODO: Implement macro derive `NoDomainEntityValidator` with the follow implementation:

@@ -30,13 +30,12 @@ struct CountTableBooksWI {
 
 impl CountTableBooksWI {
     fn run(self) {
-        
         // Response header "x-total-count: 0"
 
         // 1. Launch a request with `Input`
         let input = self.input;
         // reqwest.head(url) -> x_total_count
-        
+
         // 2. Parse data from response
         let response_result: anyhow::Result<String> = Ok("0".into());
         assert!(response_result.is_ok());

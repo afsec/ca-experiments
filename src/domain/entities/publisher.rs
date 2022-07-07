@@ -3,7 +3,7 @@ use std::ops::Deref;
 use async_trait::async_trait;
 use serde::{Deserialize, Serialize};
 
-use crate::{AppResult, domain::DataValidator};
+use crate::{domain::DataValidator, AppResult};
 
 use super::DomainEntityValidator;
 
@@ -54,7 +54,6 @@ impl DomainEntityValidator for PublisherId {
         Ok(())
     }
 }
-
 
 // * Name
 #[derive(Debug, Deserialize, Serialize)]
