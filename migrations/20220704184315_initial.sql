@@ -28,7 +28,7 @@ CREATE TABLE "books" (
 
 CREATE TABLE "orders" (
 	"id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-	"description" TEXT NULL
+	"name" TEXT NOT NULL
 	-- "user" INTEGER NOT NULL,
 	-- FOREIGN KEY("user") REFERENCES "users"("id")
 );
@@ -41,3 +41,4 @@ CREATE TABLE "carts" (
 		FOREIGN KEY("order") REFERENCES "orders"("id"),
 		FOREIGN KEY("book") REFERENCES "books"("id")
 );
+
