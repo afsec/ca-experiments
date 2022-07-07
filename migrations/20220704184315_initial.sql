@@ -35,10 +35,18 @@ CREATE TABLE "orders" (
 
 CREATE TABLE "carts" (
 		"id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+		"name" TEXT NOT NULL,
+);
+
+CREATE TABLE "cart_items" (
+		"id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+		"name" TEXT NOT NULL,
 		"order" INTEGER NOT NULL,
+		"cart" INTEGER NOT NULL,
 		"book"  INTEGER NOT NULL,
 		"price"	INTEGER NOT NULL,
 		FOREIGN KEY("order") REFERENCES "orders"("id"),
+		FOREIGN KEY("cart") REFERENCES "cart"("id"),
 		FOREIGN KEY("book") REFERENCES "books"("id")
 );
 
