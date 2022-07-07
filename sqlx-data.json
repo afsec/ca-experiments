@@ -48,6 +48,24 @@
     },
     "query": "\n            SELECT id, title, price, quantity, author, publisher\n            FROM `books`;\n        "
   },
+  "36e6f1aa76cb1854fc2db4168918c85a5a19f8a2c4204bfeb28c03a27d7567ff": {
+    "describe": {
+      "columns": [
+        {
+          "name": "count",
+          "ordinal": 0,
+          "type_info": "Int"
+        }
+      ],
+      "nullable": [
+        false
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT COUNT(*) as count FROM `carts`;\n            "
+  },
   "3e62983d664493709189ff7f04e55ce5ce2dcd88f52f22979ca414e796d70de3": {
     "describe": {
       "columns": [
@@ -114,6 +132,16 @@
     },
     "query": "\n            SELECT id, name\n            FROM `orders`;\n        "
   },
+  "882545cf9a5348cb96bbdab540416c4e6bb92e70274b695a16b233daeb4e8e07": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Right": 1
+      }
+    },
+    "query": "\n                INSERT INTO `carts` (\"name\")\n                VALUES (?1);\n            "
+  },
   "94cdbb304bc819d4fda07cd967fdcfdb57c88a8ceeaca238b99e8ca0655f599b": {
     "describe": {
       "columns": [],
@@ -165,6 +193,30 @@
       }
     },
     "query": "\n                SELECT COUNT(*) as count FROM `authors`;\n            "
+  },
+  "c866c086579a17ff1c233835731ef19dc805356f74fd097433a1b938da0a41d2": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Int64"
+        },
+        {
+          "name": "name",
+          "ordinal": 1,
+          "type_info": "Text"
+        }
+      ],
+      "nullable": [
+        false,
+        false
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n            SELECT id, name\n            FROM `carts`;\n        "
   },
   "df6bd6a1fac0d8a00e3e692e5ec4dd090a22950856a79f5abbc191ca1e5f17e2": {
     "describe": {

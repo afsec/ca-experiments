@@ -8,6 +8,7 @@ pub(crate) mod authors;
 pub(crate) mod books;
 pub(crate) mod publishers;
 pub(crate) mod orders;
+pub(crate) mod carts;
 
 const X_TOTAL_COUNT: &'static str = "X-Total-Count";
 
