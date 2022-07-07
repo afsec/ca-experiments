@@ -95,7 +95,9 @@ impl DataValidator for AuthorName {
             .chars()
             .all(|c: char| (c.is_alphabetic() || c.is_whitespace() || c == '\'').not())
         {
-            return Err(anyhow::Error::msg("Invalid char on author field"));
+            let error_msg = "Invalid char on author field";
+            tracing::error!("DataValidator violation on AuthorName - Reason: {error_msg}");
+            return Err(anyhow::Error::msg(error_msg));
         }
         Ok(())
     }
