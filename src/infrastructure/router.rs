@@ -49,3 +49,15 @@ pub(crate) fn get_routes_orders() -> Router {
             .post(OrderPresenter::create),
     )
 }
+
+pub(crate) fn get_routes_carts() -> Router {
+    use crate::interface::presenters::carts::CartPresenter;
+    use axum::routing::get;
+    Router::new().route(
+        "/carts",
+        get(CartPresenter::read_all)
+            .head(CartPresenter::count)
+            // .put(CartPresenter::add_item),
+            .post(CartPresenter::create),
+    )
+}
