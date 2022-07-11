@@ -56,42 +56,18 @@ where
     async fn interact_struct(self) -> AppResult<T>;
 }
 
-// #[derive(Debug, Deserialize, Serialize)]
-// pub(crate) struct StructInteractor<T>(T)
-// where
-//     T: DataValidator + DomainEntityValidator + UseCaseValidator;
-
-// impl<T> StructInteractor<T>
-// where
-//     T: DataValidator + DomainEntityValidator + UseCaseValidator,
-// {
-//     pub(crate) async fn interact_struct(self) -> AppResult<T> {
-//         self.0.analyze_fields().await?;
-//         Ok(self.0)
-//     }
-// }
-
-// impl<T> From<T> for StructInteractor<T>
-// where
-//     T: DataValidator + DomainEntityValidator + UseCaseValidator,
-// {
-//     fn from(data: T) -> Self {
-//         Self(data)
-//     }
-// }
-
 ////////////////////////////////////////////////////////
 
 #[derive(Debug, Deserialize, Serialize)]
-pub(crate) struct FieldInteractor<T>(T)
+pub(crate) struct FieldSealed<T>(T)
 where
     T: DataValidator + DomainEntityValidator + UseCaseValidator;
 
-impl<T> FieldInteractor<T>
+impl<T> FieldSealed<T>
 where
     T: DataValidator + DomainEntityValidator + UseCaseValidator,
 {
-    pub(crate) async fn interact_field(self) -> AppResult<T> {
+    pub(crate) async fn extract_field(self) -> AppResult<T> {
         self.0.validate_data().await?;
         self.0.validate_entity().await?;
         self.0.validate_usecase().await?;
@@ -99,7 +75,7 @@ where
     }
 }
 
-impl<T> From<T> for FieldInteractor<T>
+impl<T> From<T> for FieldSealed<T>
 where
     T: DataValidator + DomainEntityValidator + UseCaseValidator,
 {

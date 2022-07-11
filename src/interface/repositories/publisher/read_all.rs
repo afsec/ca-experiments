@@ -3,7 +3,7 @@ use crate::{
         fields::{PublisherId, PublisherName},
         structs::PublisherToBeValidated,
     },
-    interface::{repositories::Repository, services::FieldInteractor},
+    interface::{repositories::Repository, services::FieldSealed},
     AppResult,
 };
 use async_trait::async_trait;
@@ -20,8 +20,8 @@ impl TryFrom<PublisherFromSQLx> for PublisherToBeValidated {
     fn try_from(value: PublisherFromSQLx) -> Result<Self, Self::Error> {
         let PublisherFromSQLx { id, name } = value;
         Ok(Self::from((
-            FieldInteractor::from(PublisherId::try_from(id)?),
-            FieldInteractor::from(PublisherName::from(name)),
+            FieldSealed::from(PublisherId::try_from(id)?),
+            FieldSealed::from(PublisherName::from(name)),
         )))
     }
 }

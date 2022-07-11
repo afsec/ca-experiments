@@ -28,7 +28,6 @@ impl StructInteractor<()> for () {
     }
 }
 
-// TODO:
 #[async_trait]
 impl<'endpoint>
     Service<Sqlite, RepoPublisherReadAll, (), (), Vec<PublisherToBeValidated>, Vec<Publisher>>

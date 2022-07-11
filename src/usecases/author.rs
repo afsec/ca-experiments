@@ -3,7 +3,7 @@ use serde::Deserialize;
 
 use crate::{
     domain::entities::author::{AuthorId, AuthorName},
-    interface::services::FieldInteractor,
+    interface::services::FieldSealed,
     AppResult,
 };
 
@@ -27,5 +27,5 @@ impl UseCaseValidator for AuthorName {
 
 #[derive(Debug, Deserialize)]
 pub(crate) struct NewAuthor {
-    pub(crate) name: FieldInteractor<AuthorName>,
+    pub(crate) name: FieldSealed<AuthorName>,
 }

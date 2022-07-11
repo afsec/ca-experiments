@@ -2,7 +2,7 @@ use async_trait::async_trait;
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    interface::services::{FieldInteractor, StructInteractor},
+    interface::services::{FieldSealed, StructInteractor},
     AppResult,
 };
 
@@ -10,14 +10,12 @@ use super::fields::{PublisherId, PublisherName};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub(crate) struct PublisherToBeValidated {
-    id: FieldInteractor<PublisherId>,
-    name: FieldInteractor<PublisherName>,
+    id: FieldSealed<PublisherId>,
+    name: FieldSealed<PublisherName>,
 }
 
-impl From<(FieldInteractor<PublisherId>, FieldInteractor<PublisherName>)>
-    for PublisherToBeValidated
-{
-    fn from(data: (FieldInteractor<PublisherId>, FieldInteractor<PublisherName>)) -> Self {
+impl From<(FieldSealed<PublisherId>, FieldSealed<PublisherName>)> for PublisherToBeValidated {
+    fn from(data: (FieldSealed<PublisherId>, FieldSealed<PublisherName>)) -> Self {
         Self {
             id: data.0,
             name: data.1,
@@ -26,18 +24,29 @@ impl From<(FieldInteractor<PublisherId>, FieldInteractor<PublisherName>)>
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub(crate) struct Publisher {
-    // TODO:
-    pub(crate) id: PublisherId,
-    // TODO:
-    pub(crate) name: PublisherName,
+    id: PublisherId,
+    name: PublisherName,
+}
+
+impl From<Publisher> for (PublisherId, PublisherName) {
+    fn from(value: Publisher) -> Self {
+        let Publisher { id, name } = value;
+        (id, name)
+    }
+}
+
+impl From<(PublisherId, PublisherName)> for Publisher {
+    fn from((id, name): (PublisherId, PublisherName)) -> Self {
+        Self { id, name }
+    }
 }
 
 #[async_trait]
 impl StructInteractor<Publisher> for PublisherToBeValidated {
     async fn interact_struct(self) -> AppResult<Publisher> {
         Ok(Publisher {
-            id: self.id.interact_field().await?,
-            name: self.name.interact_field().await?,
+            id: self.id.extract_field().await?,
+            name: self.name.extract_field().await?,
         })
     }
 }

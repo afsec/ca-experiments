@@ -16,9 +16,10 @@ impl TryFrom<Publisher> for PublisherFromSQLx {
     type Error = anyhow::Error;
 
     fn try_from(publisher: Publisher) -> Result<Self, Self::Error> {
+        let (id, name) = publisher.into();
         Ok(Self {
-            id: publisher.id.try_into()?,
-            name: publisher.name.try_into()?,
+            id: id.try_into()?,
+            name: name.try_into()?,
         })
     }
 }
@@ -27,12 +28,13 @@ impl TryFrom<PublisherFromSQLx> for Publisher {
     type Error = anyhow::Error;
 
     fn try_from(publisher: PublisherFromSQLx) -> Result<Self, Self::Error> {
-        Ok(Self {
-            id: publisher.id.try_into()?,
-            name: publisher.name.try_into()?,
-        })
+        Ok(Self::from((
+            publisher.id.try_into()?,
+            publisher.name.into(),
+        )))
     }
 }
+
 pub(crate) struct RepoPublisherCount;
 #[async_trait]
 impl<'endpoint> Repository<Sqlite, (), PublisherLength> for RepoPublisherCount {
