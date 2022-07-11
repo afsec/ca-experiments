@@ -12,10 +12,7 @@ pub(crate) struct NewCart {
 }
 
 impl CartRepo {
-    pub(crate) async fn create(
-        db_conn_pool: &SqlitePool,
-        new_cart: NewCart,
-    ) -> AppResult<CartId> {
+    pub(crate) async fn create(db_conn_pool: &SqlitePool, new_cart: NewCart) -> AppResult<CartId> {
         let rowid = sqlx::query!(
             r#"
                 INSERT INTO `carts` ("name")

@@ -3,8 +3,8 @@ use std::ops::Deref;
 use async_trait::async_trait;
 use serde::{Deserialize, Serialize};
 
-use crate::{domain::DataValidator, AppResult};
 use crate::domain::entities::DomainEntityValidator;
+use crate::{domain::DataValidator, AppResult};
 
 // * Id
 #[derive(Debug, Deserialize, Serialize)]

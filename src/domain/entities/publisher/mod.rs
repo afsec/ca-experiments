@@ -1,2 +1,2 @@
-pub (crate) mod fields;
-pub (crate) mod structs;
+pub(crate) mod fields;
+pub(crate) mod structs;

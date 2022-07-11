@@ -15,7 +15,6 @@ pub(crate) trait DataValidator {
     async fn validate_data(&self) -> AppResult<()>;
 }
 
-
 /// Factory – an object or method that implements object creation logic which is too
 /// complex to be done directly by a constructor. A factory might be implemented as a
 ///  static method of a class.

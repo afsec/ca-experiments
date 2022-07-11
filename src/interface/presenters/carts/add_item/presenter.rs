@@ -10,7 +10,4 @@ use crate::{
 use super::AddItem;
 
 #[async_trait]
-impl<'endpoint> Presenter<'endpoint, AddItem, Sqlite, NewItem, CartId, Json<CartId>>
-    for AddItem
-{
-}
+impl<'endpoint> Presenter<'endpoint, AddItem, Sqlite, NewItem, CartId, Json<CartId>> for AddItem {}

@@ -1,10 +1,6 @@
 use super::CartRepo;
 use crate::{
-    domain::entities::{
-        book::BookId,
-        cart::{CartId},
-        order::OrderId,
-    },
+    domain::entities::{book::BookId, cart::CartId, order::OrderId},
     AppResult,
 };
 use serde::Serialize;

@@ -1,6 +1,7 @@
-use crate::{interface::{
-    presenters::{Endpoint, Presenter},
-}, domain::entities::publisher::structs::Publisher};
+use crate::{
+    domain::entities::publisher::structs::Publisher,
+    interface::presenters::{Endpoint, Presenter},
+};
 
 use axum::{http::StatusCode, Json};
 

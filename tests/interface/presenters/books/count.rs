@@ -33,7 +33,8 @@ impl CountTableBooksWI {
         // Response header "x-total-count: 0"
 
         // 1. Launch a request with `Input`
-        let input = self.input;
+        // TODO
+        let _input = self.input;
         // reqwest.head(url) -> x_total_count
 
         // 2. Parse data from response
