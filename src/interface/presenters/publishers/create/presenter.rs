@@ -3,8 +3,7 @@ use axum::Json;
 use sqlx::Sqlite;
 
 use crate::{
-    domain::entities::publisher::PublisherId,
-    interface::{presenters::Presenter, repositories::publisher::create::NewPublisher},
+    interface::{presenters::Presenter, repositories::publisher::create::NewPublisher}, domain::entities::publisher::fields::PublisherId,
 };
 
 use super::Create;

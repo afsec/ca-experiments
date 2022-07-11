@@ -1,10 +1,8 @@
-use super::PublisherRepo;
 use crate::{
-    domain::entities::publisher::{PublisherId, PublisherName},
-    AppResult,
+    domain::entities::publisher::structs::Publisher, interface::repositories::Repository, AppResult,
 };
-use serde::Serialize;
-use sqlx::{FromRow, SqlitePool};
+use async_trait::async_trait;
+use sqlx::{FromRow, Sqlite};
 
 // * DepartmentFromSqlx
 #[derive(Debug, FromRow)]
@@ -24,12 +22,6 @@ impl TryFrom<Publisher> for PublisherFromSQLx {
     }
 }
 
-#[derive(Debug, Serialize)]
-pub(crate) struct Publisher {
-    id: PublisherId,
-    name: PublisherName,
-}
-
 impl TryFrom<PublisherFromSQLx> for Publisher {
     type Error = anyhow::Error;
 
@@ -41,8 +33,13 @@ impl TryFrom<PublisherFromSQLx> for Publisher {
     }
 }
 
-impl PublisherRepo {
-    pub(crate) async fn read_all(db_conn_pool: &SqlitePool) -> AppResult<Vec<Publisher>> {
+pub(crate) struct RepoPublisherReadAll;
+#[async_trait]
+impl<'endpoint> Repository<Sqlite, (), Vec<Publisher>> for RepoPublisherReadAll {
+    async fn repository(
+        db_conn_pool: &sqlx::Pool<Sqlite>,
+        _params: (),
+    ) -> AppResult<Vec<Publisher>> {
         let records: Vec<PublisherFromSQLx> = sqlx::query_as!(
             PublisherFromSQLx,
             r#"

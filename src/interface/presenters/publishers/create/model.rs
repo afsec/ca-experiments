@@ -1,10 +1,9 @@
 use super::Create;
-use crate::domain::entities::publisher::PublisherId;
-use crate::interface::repositories::publisher::create::NewPublisher;
-use crate::{
-    interface::{presenters::Model, repositories::publisher::PublisherRepo},
-    AppResult,
-};
+
+use crate::domain::entities::publisher::fields::PublisherId;
+
+use crate::interface::repositories::publisher::create::{NewPublisher, RepoPublisherCreate};
+use crate::{interface::presenters::Model, AppResult};
 use async_trait::async_trait;
 use sqlx::Sqlite;
 
@@ -15,6 +14,7 @@ impl<'endpoint> Model<'endpoint, Sqlite, NewPublisher, PublisherId> for Create {
         db_conn_pool: &sqlx::Pool<Sqlite>,
         submitted_data: NewPublisher,
     ) -> AppResult<PublisherId> {
-        PublisherRepo::create(db_conn_pool, submitted_data).await
+        use crate::interface::repositories::Repository;
+        RepoPublisherCreate::repository(db_conn_pool, submitted_data).await
     }
 }

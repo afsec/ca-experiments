@@ -1,5 +1,5 @@
 use super::ReadAll;
-use crate::interface::repositories::publisher::read_all::Publisher;
+use crate::domain::entities::publisher::structs::Publisher;
 use crate::{interface::presenters::View, AppResult};
 
 use async_trait::async_trait;

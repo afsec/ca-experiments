@@ -1,5 +1,5 @@
 use super::Create;
-use crate::domain::entities::publisher::PublisherId;
+use crate::domain::entities::publisher::fields::PublisherId;
 use crate::{interface::presenters::View, AppResult};
 
 use async_trait::async_trait;

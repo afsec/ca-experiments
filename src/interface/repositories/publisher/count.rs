@@ -1,10 +1,9 @@
-use super::PublisherRepo;
 use crate::{
-    domain::entities::publisher::{PublisherId, PublisherName},
-    AppResult,
+    domain::entities::publisher::structs::Publisher, interface::repositories::Repository, AppResult,
 };
+use async_trait::async_trait;
 use serde::Serialize;
-use sqlx::{FromRow, SqlitePool};
+use sqlx::{FromRow, Sqlite};
 
 // * DepartmentFromSqlx
 #[derive(Debug, FromRow)]
@@ -24,12 +23,6 @@ impl TryFrom<Publisher> for PublisherFromSQLx {
     }
 }
 
-#[derive(Debug, Serialize)]
-pub(crate) struct Publisher {
-    id: PublisherId,
-    name: PublisherName,
-}
-
 impl TryFrom<PublisherFromSQLx> for Publisher {
     type Error = anyhow::Error;
 
@@ -40,9 +33,13 @@ impl TryFrom<PublisherFromSQLx> for Publisher {
         })
     }
 }
-
-impl PublisherRepo {
-    pub(crate) async fn count(db_conn_pool: &SqlitePool) -> AppResult<PublisherLength> {
+pub(crate) struct RepoPublisherCount;
+#[async_trait]
+impl<'endpoint> Repository<Sqlite, (), PublisherLength> for RepoPublisherCount {
+    async fn repository(
+        db_conn_pool: &sqlx::Pool<Sqlite>,
+        _submitted_data: (),
+    ) -> AppResult<PublisherLength> {
         let records = sqlx::query!(
             r#"
                 SELECT COUNT(*) as count FROM `publishers`;

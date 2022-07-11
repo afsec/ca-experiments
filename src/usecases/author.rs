@@ -3,10 +3,11 @@ use serde::Deserialize;
 
 use crate::{
     domain::entities::author::{AuthorId, AuthorName},
+    interface::services::FieldInteractor,
     AppResult,
 };
 
-use super::{FieldInteractor, UseCaseValidator};
+use super::UseCaseValidator;
 
 // * Id
 #[async_trait]

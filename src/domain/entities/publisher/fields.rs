@@ -4,8 +4,7 @@ use async_trait::async_trait;
 use serde::{Deserialize, Serialize};
 
 use crate::{domain::DataValidator, AppResult};
-
-use super::DomainEntityValidator;
+use crate::domain::entities::DomainEntityValidator;
 
 // * Id
 #[derive(Debug, Deserialize, Serialize)]

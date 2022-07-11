@@ -1,5 +1,5 @@
 use crate::{
-    domain::entities::publisher::PublisherId,
+    domain::entities::publisher::fields::PublisherId,
     interface::{
         presenters::{Endpoint, Presenter},
         repositories::publisher::create::NewPublisher,

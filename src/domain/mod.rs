@@ -15,9 +15,6 @@ pub(crate) trait DataValidator {
     async fn validate_data(&self) -> AppResult<()>;
 }
 
-/// Service – an object that implements business logic which doesn’t belong in an entity or
-///  a value object.
-pub(crate) trait Service {}
 
 /// Factory – an object or method that implements object creation logic which is too
 /// complex to be done directly by a constructor. A factory might be implemented as a

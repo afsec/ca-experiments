@@ -1,7 +1,7 @@
 use async_trait::async_trait;
 
 use crate::{
-    domain::entities::publisher::{PublisherId, PublisherName},
+    domain::entities::publisher::fields::{PublisherId, PublisherName},
     AppResult,
 };
 

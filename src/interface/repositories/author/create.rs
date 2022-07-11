@@ -8,7 +8,7 @@ impl AuthorRepo {
         db_conn_pool: &SqlitePool,
         new_author: NewAuthor,
     ) -> AppResult<AuthorId> {
-        let name = new_author.name.interact().await?;
+        let name = new_author.name.interact_field().await?;
         let rowid = sqlx::query!(
             r#"
                 INSERT INTO `authors` ("name")

@@ -1,19 +1,22 @@
-use super::PublisherRepo;
 use crate::{
-    domain::entities::publisher::{PublisherId, PublisherName},
+    domain::entities::publisher::fields::{PublisherId, PublisherName},
+    interface::repositories::Repository,
     AppResult,
 };
+use async_trait::async_trait;
 use serde::{Deserialize, Serialize};
-use sqlx::SqlitePool;
+use sqlx::Sqlite;
 
 #[derive(Debug, Deserialize, Serialize)]
 pub(crate) struct NewPublisher {
     pub(crate) name: PublisherName,
 }
 
-impl PublisherRepo {
-    pub(crate) async fn create(
-        db_conn_pool: &SqlitePool,
+pub(crate) struct RepoPublisherCreate;
+#[async_trait]
+impl<'endpoint> Repository<Sqlite, NewPublisher, PublisherId> for RepoPublisherCreate {
+    async fn repository(
+        db_conn_pool: &sqlx::Pool<Sqlite>,
         new_publisher: NewPublisher,
     ) -> AppResult<PublisherId> {
         let rowid = sqlx::query!(

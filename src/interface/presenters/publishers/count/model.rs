@@ -2,7 +2,7 @@ use super::Count;
 use crate::{
     interface::{
         presenters::Model,
-        repositories::publisher::{count::PublisherLength, PublisherRepo},
+        repositories::publisher::count::{PublisherLength, RepoPublisherCount},
     },
     AppResult,
 };
@@ -16,6 +16,7 @@ impl<'endpoint> Model<'endpoint, Sqlite, (), PublisherLength> for Count {
         db_conn_pool: &sqlx::Pool<Sqlite>,
         _submitted_data: (),
     ) -> AppResult<PublisherLength> {
-        PublisherRepo::count(db_conn_pool).await
+        use crate::interface::repositories::Repository;
+        RepoPublisherCount::repository(db_conn_pool, ()).await
     }
 }
