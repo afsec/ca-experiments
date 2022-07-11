@@ -2,10 +2,7 @@ use async_trait::async_trait;
 
 use crate::{domain::entities::DomainEntityValidator, AppResult};
 
-/// Application-specific business logic for our Library app.
-// Save Author in our library
-// Save Book in our library
-// Fetch all books from our library
+// * Application-specific business logic for our Library app.
 pub(crate) mod author;
 pub(crate) mod book;
 pub(crate) mod publisher;

@@ -11,10 +11,8 @@ use super::repositories::Repository;
 
 pub(crate) mod publisher;
 
-/// Service – an object that implements business logic which doesn’t belong in an entity or
+/// An object that implements business logic which doesn’t belong in an entity or
 ///  a value object.
-// pub(crate) trait Service {}
-
 #[async_trait]
 pub(crate) trait Service<
     DBDRIVER,

@@ -13,6 +13,7 @@ use super::UseCaseValidator;
 #[async_trait]
 impl UseCaseValidator for AuthorId {
     async fn validate_usecase(&self) -> AppResult<()> {
+        // TODO
         Ok(())
     }
 }
@@ -21,6 +22,7 @@ impl UseCaseValidator for AuthorId {
 #[async_trait]
 impl UseCaseValidator for AuthorName {
     async fn validate_usecase(&self) -> AppResult<()> {
+        // TODO
         Ok(())
     }
 }

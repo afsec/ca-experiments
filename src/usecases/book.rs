@@ -8,19 +8,19 @@ use crate::{
 use super::UseCaseValidator;
 
 // * Id
-
 #[async_trait]
 impl UseCaseValidator for BookId {
     async fn validate_usecase(&self) -> AppResult<()> {
+        // TODO
         Ok(())
     }
 }
 
 // * Name
-
 #[async_trait]
 impl UseCaseValidator for BookTitle {
     async fn validate_usecase(&self) -> AppResult<()> {
+        // TODO
         Ok(())
     }
 }
