@@ -3,7 +3,7 @@ use sqlx::Sqlite;
 
 use crate::{
     domain::entities::publisher::structs::{Publisher, PublisherToBeValidated},
-    // interface::repositories::publisher::read_all::RepoPublisherReadAll,
+    interface::repositories::publisher::read_all::RepoPublisherReadAll,
     AppResult,
 };
 
@@ -14,9 +14,11 @@ pub(crate) struct ServicePublisherReadAll;
 #[async_trait]
 impl StructInteractor<Vec<Publisher>> for Vec<PublisherToBeValidated> {
     async fn interact_struct(self) -> AppResult<Vec<Publisher>> {
-        self.iter().map(|item| item);
-        // TODO:
-        Ok(vec![])
+        let mut publishers: Vec<Publisher> = vec![];
+        for item in self.into_iter() {
+            publishers.push(item.interact_struct().await?);
+        }
+        Ok(publishers)
     }
 }
 #[async_trait]
@@ -27,15 +29,9 @@ impl StructInteractor<()> for () {
 }
 
 // TODO:
-// #[async_trait]
-// impl<'endpoint>
-//     Service<
-//         Sqlite,
-//         RepoPublisherReadAll,
-//         (),
-//         (),
-//         Vec<Publisher>,
-//         Vec<PublisherValidated>,
-//     > for ServicePublisherReadAll
-// {
-// }
+#[async_trait]
+impl<'endpoint>
+    Service<Sqlite, RepoPublisherReadAll, (), (), Vec<PublisherToBeValidated>, Vec<Publisher>>
+    for ServicePublisherReadAll
+{
+}

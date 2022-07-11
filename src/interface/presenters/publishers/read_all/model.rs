@@ -1,11 +1,8 @@
 use super::ReadAll;
-// use crate::interface::services::Service;
+
 use crate::{
     domain::entities::publisher::structs::Publisher,
-    interface::{
-        presenters::Model, repositories::publisher::read_all::RepoPublisherReadAll,
-        // services::publisher::ServicePublisherReadAll,
-    },
+    interface::{presenters::Model, services::publisher::ServicePublisherReadAll},
     AppResult,
 };
 use async_trait::async_trait;
@@ -18,8 +15,7 @@ impl<'endpoint> Model<'endpoint, Sqlite, (), Vec<Publisher>> for ReadAll {
         db_conn_pool: &sqlx::Pool<Sqlite>,
         submitted_data: (),
     ) -> AppResult<Vec<Publisher>> {
-        use crate::interface::repositories::Repository;
-        // ServicePublisherReadAll::service(db_conn_pool, RepoPublisherReadAll, submitted_data).await
-        RepoPublisherReadAll::repository(db_conn_pool, submitted_data).await
+        use crate::interface::services::Service;
+        ServicePublisherReadAll::service(db_conn_pool, submitted_data).await
     }
 }

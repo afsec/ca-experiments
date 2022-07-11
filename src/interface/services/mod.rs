@@ -33,7 +33,6 @@ pub(crate) trait Service<
 {
     async fn service(
         db_conn_pool: &Pool<DBDRIVER>,
-        repo: REPOSITORY,
         submitted_data: INPUTDATA,
     ) -> AppResult<VALIDATEDOUTCOME>
     where

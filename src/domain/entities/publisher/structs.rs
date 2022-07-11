@@ -14,6 +14,16 @@ pub(crate) struct PublisherToBeValidated {
     name: FieldInteractor<PublisherName>,
 }
 
+impl From<(FieldInteractor<PublisherId>, FieldInteractor<PublisherName>)>
+    for PublisherToBeValidated
+{
+    fn from(data: (FieldInteractor<PublisherId>, FieldInteractor<PublisherName>)) -> Self {
+        Self {
+            id: data.0,
+            name: data.1,
+        }
+    }
+}
 #[derive(Debug, Serialize, Deserialize)]
 pub(crate) struct Publisher {
     // TODO:

@@ -1,45 +1,60 @@
 use crate::{
-    domain::entities::publisher::structs::Publisher, interface::repositories::Repository, AppResult,
+    domain::entities::publisher::{
+        fields::{PublisherId, PublisherName},
+        structs::PublisherToBeValidated,
+    },
+    interface::{repositories::Repository, services::FieldInteractor},
+    AppResult,
 };
 use async_trait::async_trait;
 use sqlx::{FromRow, Sqlite};
 
-// * DepartmentFromSqlx
 #[derive(Debug, FromRow)]
 pub(crate) struct PublisherFromSQLx {
     id: i64,
     name: String,
 }
-
-impl TryFrom<Publisher> for PublisherFromSQLx {
+impl TryFrom<PublisherFromSQLx> for PublisherToBeValidated {
     type Error = anyhow::Error;
 
-    fn try_from(publisher: Publisher) -> Result<Self, Self::Error> {
-        Ok(Self {
-            id: publisher.id.try_into()?,
-            name: publisher.name.try_into()?,
-        })
+    fn try_from(value: PublisherFromSQLx) -> Result<Self, Self::Error> {
+        let PublisherFromSQLx { id, name } = value;
+        Ok(Self::from((
+            FieldInteractor::from(PublisherId::try_from(id)?),
+            FieldInteractor::from(PublisherName::from(name)),
+        )))
     }
 }
 
-impl TryFrom<PublisherFromSQLx> for Publisher {
-    type Error = anyhow::Error;
+// impl TryFrom<Publisher> for PublisherFromSQLx {
+//     type Error = anyhow::Error;
 
-    fn try_from(publisher: PublisherFromSQLx) -> Result<Self, Self::Error> {
-        Ok(Self {
-            id: publisher.id.try_into()?,
-            name: publisher.name.try_into()?,
-        })
-    }
-}
+//     fn try_from(publisher: Publisher) -> Result<Self, Self::Error> {
+//         Ok(Self {
+//             id: publisher.id.try_into()?,
+//             name: publisher.name.try_into()?,
+//         })
+//     }
+// }
+
+// impl TryFrom<PublisherFromSQLx> for Publisher {
+//     type Error = anyhow::Error;
+
+//     fn try_from(publisher: PublisherFromSQLx) -> Result<Self, Self::Error> {
+//         Ok(Self {
+//             id: publisher.id.try_into()?,
+//             name: publisher.name.try_into()?,
+//         })
+//     }
+// }
 
 pub(crate) struct RepoPublisherReadAll;
 #[async_trait]
-impl<'endpoint> Repository<Sqlite, (), Vec<Publisher>> for RepoPublisherReadAll {
+impl<'endpoint> Repository<Sqlite, (), Vec<PublisherToBeValidated>> for RepoPublisherReadAll {
     async fn repository(
         db_conn_pool: &sqlx::Pool<Sqlite>,
         _params: (),
-    ) -> AppResult<Vec<Publisher>> {
+    ) -> AppResult<Vec<PublisherToBeValidated>> {
         let records: Vec<PublisherFromSQLx> = sqlx::query_as!(
             PublisherFromSQLx,
             r#"
@@ -52,7 +67,7 @@ impl<'endpoint> Repository<Sqlite, (), Vec<Publisher>> for RepoPublisherReadAll 
 
         // * To improve performance -> https://github.com/launchbadge/sqlx/issues/117
 
-        let publishers: AppResult<Vec<Publisher>> = records
+        let publishers: AppResult<Vec<PublisherToBeValidated>> = records
             .into_iter()
             .map(|record| Ok(record.try_into()?))
             .collect();
